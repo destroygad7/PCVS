@@ -1,0 +1,27 @@
+<mat-card class="login-card">
+  <div>
+    <h1>Welcome to Private Covid-19 Vaccination System</h1>
+    <p>
+      The Covid-19 vaccination rollout in Malaysia and most countries have been underway for a
+few months. As more and more of the population have been vaccinated, private healthcare
+centres have been allowed to purchase and administer vaccines, especially to patients who want
+to choose the type of vaccine that they receive.
+    </p>
+    <br>
+
+    <mat-form-field appearance="fill" class="login-card-full-width">
+      <mat-label>Please enter your Email..</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+           placeholder="Eg. email@example.com">
+    <mat-hint>hint goes here</mat-hint>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button class="login-button" color="accent">Proceed</button>
+  </div>
+
+</mat-card>
