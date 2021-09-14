@@ -11,20 +11,15 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { UserMainComponent } from './user-main/user-main.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { LoginComponent } from './component/login/login.component';
+
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegisterComponent,
     LoginComponent,
-    UserMainComponent,
-    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
