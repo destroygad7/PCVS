@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { admin } from '../model/admin.model';
 import { user } from '../model/user.model';
-import { patient } from '../model/patient.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CentresService {
+export class UserService {
   private users:user [] = [];
 
   getUsers(){
@@ -25,24 +23,54 @@ export class CentresService {
     user.hasOwnProperty("staffID");
   }
 
+  checkPassword(email:String,password:String){
+    let user =this.getUserByEmail(email);
+    if (user!=undefined){
+      if(user.password === password){
+        return true;
+      }
+    }
+    return false;
+  }
+
   addAdmin(userID: String,username: String,email: String,password: String,
-    name: String,centreID: String, staffID: String) {
-    const admin:admin  = {
+    name: String,centreID: String, staffID: String, phone:number, gender:number) {
+    const user:user  = {
       userID:userID,
       username:username,
       email:email,
       password:password,
       name:name,
       centreID:centreID,
-      staffID:staffID
+      staffID:staffID,
+      ID: '',
+      IDtype: '',
+      phone: phone,
+      gender: gender,
+      first: false,
+      second: false,
     }
-    this.users.push(admin);
+    this.users.push(user);
   }
 
-  //getAdminByID(: String){
-  //  let found = this.admins.find(i=>i === centreID)
-  //  return
-  //}
-
-
+  addPatient(userID: String,username: String,email: String,
+    password: String,name: String,ID: String,IDtype: String,
+    phone: number,gender: number,first: boolean,second: boolean){
+      const user:user = {
+      userID:userID,
+      username:username,
+      email:email,
+      password:password,
+      name:name,
+      centreID:'',
+      staffID:'',
+      ID: ID,
+      IDtype: IDtype,
+      phone: phone,
+      gender: gender,
+      first: first,
+      second: second,
+      }
+      this.users.push(user);
+  }
 }

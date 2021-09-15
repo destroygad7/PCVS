@@ -14,5 +14,4 @@ export interface user{
   gender: number; //0=female 1=male
   first: boolean; //vaccinated?
   second: boolean;
-  vaccinationID: String;
 }
