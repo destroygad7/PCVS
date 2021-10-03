@@ -14,12 +14,28 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './component/login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { LoginSelectComponent } from './component/login-select/login-select.component';
+import { LoginPasswordComponent } from './component/login-password/login-password.component';
+import { RegisterAdminComponent } from './component/register-admin/register-admin.component';
+import { RegisterClientComponent } from './component/register-client/register-client.component';
+import { RegisterSelectComponent } from './component/register-select/register-select.component';
+import { ClientNavComponent } from './component/client-nav/client-nav.component';
+import { ClientHomeComponent } from './component/client-home/client-home.component';
+import { ClientVaccineComponent } from './component/client-vaccine/client-vaccine.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
+    LoginSelectComponent,
+    LoginPasswordComponent,
+    RegisterAdminComponent,
+    RegisterClientComponent,
+    RegisterSelectComponent,
+    ClientNavComponent,
+    ClientHomeComponent,
+    ClientVaccineComponent,
   ],
   imports: [
     BrowserModule,
