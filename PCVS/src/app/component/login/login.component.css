@@ -25,6 +25,13 @@
   margin-bottom: 20px;
 }
 
+.patient-button, .admin-button {
+  width:50%;
+  margin-left:25%;
+  margin-right:25%;
+  margin-bottom: 20px;
+}
+
 p {
   color: gray;
   text-align: justify;
@@ -32,6 +39,6 @@ p {
   padding-right: 10px;
 }
 
-h1 {
+h1,h2 {
   text-align: center;
 }

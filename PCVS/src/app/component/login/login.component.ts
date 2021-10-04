@@ -9,6 +9,8 @@ import {ErrorStateMatcher} from '@angular/material/core';
 })
 export class LoginComponent implements OnInit {
 
+  i = 10;
+
   constructor() { }
 
   emailFormControl = new FormControl('', [
@@ -17,6 +19,7 @@ export class LoginComponent implements OnInit {
   ]);
 
   matcher = new MyErrorStateMatcher();
+
 
   ngOnInit(): void {
   }

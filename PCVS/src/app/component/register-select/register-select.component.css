@@ -1,0 +1,25 @@
+.select-card {
+  min-width: 600px;
+  max-width: 800px;
+  width: 100%;
+  margin-top: 10em;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+}
+
+.selet-child-left {
+  float: left;
+  width: 45%;
+
+  height: 600px;
+}
+
+.selet-child-right {
+  float: right;
+  width: 45%;
+
+  height: 600px;
+}

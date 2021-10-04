@@ -1,0 +1,14 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.center-card {
+  width: 80%;
+  max-width: 800px;
+  margin-left: 200px;
+  margin-right: auto;
+}
+
+agm-map {
+  height: 300px;
+}

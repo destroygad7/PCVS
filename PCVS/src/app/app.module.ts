@@ -6,6 +6,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { AgmCoreModule } from '@agm/core';
+import { } from '@google/maps';
 
 
 
@@ -14,7 +20,6 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './component/login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { LoginSelectComponent } from './component/login-select/login-select.component';
 import { LoginPasswordComponent } from './component/login-password/login-password.component';
 import { RegisterAdminComponent } from './component/register-admin/register-admin.component';
 import { RegisterClientComponent } from './component/register-client/register-client.component';
@@ -28,7 +33,6 @@ import { ClientVaccineComponent } from './component/client-vaccine/client-vaccin
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    LoginSelectComponent,
     LoginPasswordComponent,
     RegisterAdminComponent,
     RegisterClientComponent,
@@ -46,7 +50,13 @@ import { ClientVaccineComponent } from './component/client-vaccine/client-vaccin
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressBarModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatToolbarModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCSQMLteimv75SIbD39HpsDUxrgW6gZ2nY'}),
   ],
   providers: [],
   bootstrap: [AppComponent]

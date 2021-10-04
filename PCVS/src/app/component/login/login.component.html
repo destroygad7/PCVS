@@ -1,4 +1,4 @@
-<mat-card class="login-card">
+<mat-card class="login-card" *ngIf="i===10">
   <div>
     <h1>Welcome to Private Covid-19 Vaccination System</h1>
     <p>
@@ -21,7 +21,74 @@ to choose the type of vaccine that they receive.
       Email is <strong>required</strong>
     </mat-error>
     </mat-form-field>
+    <button
+    *ngIf="!emailFormControl.hasError('email') && !emailFormControl.hasError('required')"
+    type="submit" mat-raised-button class="login-button" color="accent">Proceed</button>
+    <button
+    *ngIf="emailFormControl.hasError('email') || emailFormControl.hasError('required')"
+    mat-raised-button disabled class="login-button">Proceed</button>
+  </div>
+</mat-card>
+
+<mat-card class="login-card"
+*ngIf="i===1"
+style="margin-top: 10em;">
+  <div>
+    <h1>Welcome to Private Covid-19 Vaccination System</h1>
+    <p>
+      Oops, no account was found with this e-mail.
+      Please register one or
+      <a href="">try again</a>.
+    </p>
+    <br>
+    <h2>You are...</h2>
+    <button mat-stroked-button class="patient-button" color="accent">A Vaccine Patient</button>
+    <button mat-stroked-button class="admin-button" color="primary">A Doctor/Staff</button>
+  </div>
+</mat-card>
+
+<mat-card class="login-card"
+*ngIf="i===110"
+style="margin-top: 5em;">
+  <div>
+    <h1>Register</h1>
+    <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+    <br>
+    <p>
+        Fill in the fields. Fields with * are required.
+    </p>
+
+    <br>
+
+    <mat-form-field appearance="fill" class="login-card-full-width">
+      <mat-label>Please enter your Email..</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+           placeholder="Eg. email@example.com">
+    <mat-hint>hint goes here</mat-hint>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+    </mat-form-field>
     <button type="submit" mat-raised-button class="login-button" color="accent">Proceed</button>
   </div>
+</mat-card>
 
+<mat-card class="login-card"
+*ngIf="i===101"
+style="margin-top: 10em;">
+<div>
+  <h1>Register</h1>
+  <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+  <br>
+  <p style="text-align: center;">
+    Hang on, almost there...
+  </p>
+  <br>
+  <h2>You have...</h2>
+  <button mat-stroked-button class="patient-button" color="primary">not vaccinated yet.</button>
+  <button mat-stroked-button class="admin-button" color="primary">taken first dose.</button>
+</div>
 </mat-card>
