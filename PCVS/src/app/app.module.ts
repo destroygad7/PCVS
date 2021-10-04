@@ -27,6 +27,9 @@ import { RegisterSelectComponent } from './component/register-select/register-se
 import { ClientNavComponent } from './component/client-nav/client-nav.component';
 import { ClientHomeComponent } from './component/client-home/client-home.component';
 import { ClientVaccineComponent } from './component/client-vaccine/client-vaccine.component';
+import { AdminHomeComponent } from './component/admin-home/admin-home.component';
+import { AdminNavComponent } from './component/admin-nav/admin-nav.component';
+import { AdminBatchComponent } from './component/admin-batch/admin-batch.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { ClientVaccineComponent } from './component/client-vaccine/client-vaccin
     ClientNavComponent,
     ClientHomeComponent,
     ClientVaccineComponent,
+    AdminHomeComponent,
+    AdminNavComponent,
+    AdminBatchComponent,
   ],
   imports: [
     BrowserModule,

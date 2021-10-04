@@ -1,4 +1,4 @@
-<mat-card class="login-card" *ngIf="i===10">
+<mat-card class="login-card" *ngIf="i===101">
   <div>
     <h1>Welcome to Private Covid-19 Vaccination System</h1>
     <p>
@@ -30,6 +30,7 @@ to choose the type of vaccine that they receive.
   </div>
 </mat-card>
 
+<!--If user not exist-->
 <mat-card class="login-card"
 *ngIf="i===1"
 style="margin-top: 10em;">
@@ -47,6 +48,7 @@ style="margin-top: 10em;">
   </div>
 </mat-card>
 
+<!--Client Register-->
 <mat-card class="login-card"
 *ngIf="i===110"
 style="margin-top: 5em;">
@@ -91,4 +93,65 @@ style="margin-top: 10em;">
   <button mat-stroked-button class="patient-button" color="primary">not vaccinated yet.</button>
   <button mat-stroked-button class="admin-button" color="primary">taken first dose.</button>
 </div>
+</mat-card>
+
+<!--admin register-->
+<mat-card class="login-card"
+*ngIf="i===101"
+style="margin-top: 5em;">
+  <div>
+    <h1>Register</h1>
+    <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+    <br>
+    <p>
+        Fill in the fields. Fields with * are required.
+    </p>
+
+    <br>
+
+    <mat-form-field appearance="fill" class="login-card-full-width">
+      <mat-label>Please enter your Email..</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+           placeholder="Eg. email@example.com">
+    <mat-hint>hint goes here</mat-hint>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button class="login-button" color="accent">Proceed</button>
+  </div>
+</mat-card>
+
+<!--if user found-->
+<mat-card class="login-card"
+*ngIf="i===10"
+style="margin-top: 5em;">
+  <div>
+    <h1>Welcome back, name</h1>
+    <p>
+        Make sure to keep your password private.
+        Never share it to anyone.
+    </p>
+
+    <br>
+
+    <mat-form-field appearance="fill" class="login-card-full-width">
+      <mat-label>Please enter your Password..</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+           placeholder="Eg. email@example.com">
+    <mat-hint>hint goes here</mat-hint>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button class="login-button" color="accent">
+      Login
+    </button>
+  </div>
 </mat-card>
