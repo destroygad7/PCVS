@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { UserService } from 'src/app/service/user.service';
+import { CurrentUserService } from 'src/app/service/currentuser.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +11,18 @@ import {ErrorStateMatcher} from '@angular/material/core';
 })
 export class LoginComponent implements OnInit {
 
-  i = 10;
+  inputEmail='';
+  page:number;
+  hide = true;
+  progress=10;
+  optionValue:any;
 
-  constructor() { }
+
+
+  constructor(public userService:UserService,
+    currentUserService:CurrentUserService) {
+      this.page=0;
+    }
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -21,7 +32,46 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  //form controll
+  verifyEmail(form: NgForm) {
+    if (form.invalid){console.log("invalid email");return;}
+    this.inputEmail = form.value.email;
+    let found=this.userService.getUserByEmail(this.inputEmail)
+    if (found!=undefined){
+      this.page=5;
+      return;
+    }
+    console.log(this.inputEmail);
+    this.page=1;
+  }
+
+  verifyPatient(form: NgForm){
+
+  }
+
+  //page manipulation
+  public returnToFirst(){ //clear all form data
+    console.log("back to first");
+    this.page=0;
+    return;
+  }
+
+  public gotoPatientReg():any {
+    console.log("to patient register");
+    this.page=2;
+    return;
+  }
+
+  public gotoAdminReg() {
+    console.log("to admin register");
+    this.page=4;
+    return;
+  }
+
+  public setProgress(number:number) {
+    this.progress = number;
   }
 }
 

@@ -1,4 +1,4 @@
-export interface vaccination{
+export interface Vaccination{
   vaccinationID: String;
   vaccineID: String;
   centreID: String;

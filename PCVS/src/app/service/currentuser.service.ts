@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
-import { user } from '../model/user.model';
+import { User } from '../model/user.model';
 import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrentUserService {
-  private user:user = {
+  private user:User;
+  private loginstatus:boolean = false;
+
+  constructor(public userservice:UserService){
+    this.user ={
       userID:'',
       username:'',
-      email:'',
-      password:'',
-      name:'',
-      centreID:'',
-      staffID:'',
-      ID: '',
-      IDtype: '',
-      phone: 0,
-      gender: 0,
-      first: false,
-      second: false
-  };
-
-  constructor(public userservice:UserService){}
+      email:"",
+      password:"",
+      name:"",
+      acctype:"",
+      centreID:"",
+      staffID:"",
+      ID:"",
+      IDtype:"",
+      phone:0,
+      gender:0,
+      first:false,
+    };
+  }
 
   getUsername() {
     return this.user.username
@@ -72,18 +75,73 @@ export class CurrentUserService {
     return this.user.first
   }
 
-  getSecond(){
-    return this.user.second
+  getLoginStatus(){
+    return this.loginstatus
   }
 
   login(email:String,password:String){
     let user = this.userservice.getUserByEmail(email)
-    if (!user){
-      return 0 //not logged in
+    if (user!=undefined){
+      if (this.checkPassword(password,user)){
+        this.user = user;
+        this.loginstatus = true;
+        return true;
+      }
     }
-    if (user.centreID != ''){
-      return 1 //admin
+    return false;
+  }
+
+  logout(){
+    let user:User ={
+      userID:'',
+      username:'',
+      email:"",
+      password:"",
+      name:"",
+      acctype:"",
+      centreID:"",
+      staffID:"",
+      ID:"",
+      IDtype:"",
+      phone:0,
+      gender:0,
+      first:false,
+    };
+    this.user=user;
+    this.loginstatus=false;
+    return;
+  }
+
+  isAdmin(){
+    if (typeof(this.user)!="undefined"){
+      if (this.user.acctype ==="admin")
+        return true;
+      return false;
     }
-    return 2 //patient
+    return false;
+  }
+
+  checkPassword(Password:String, user:User){
+    if(user.password === Password){
+      return true;
+    }
+    return false;
+  }
+
+
+  setPassword(password:String){
+    this.user.password = password;
+    return;
+  }
+
+  setPhone(phone:number){
+    this.user.phone = phone;
+    return;
+  }
+
+  setFirst(){
+    this.user.first = true;
+    return;
   }
 }
+

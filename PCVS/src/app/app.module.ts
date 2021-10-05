@@ -12,6 +12,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AgmCoreModule } from '@agm/core';
 import { } from '@google/maps';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -30,6 +32,12 @@ import { ClientVaccineComponent } from './component/client-vaccine/client-vaccin
 import { AdminHomeComponent } from './component/admin-home/admin-home.component';
 import { AdminNavComponent } from './component/admin-nav/admin-nav.component';
 import { AdminBatchComponent } from './component/admin-batch/admin-batch.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  {path:'login',component:LoginComponent},
+  {path: '',redirectTo: '/login', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
@@ -61,8 +69,13 @@ import { AdminBatchComponent } from './component/admin-batch/admin-batch.compone
     MatTabsModule,
     MatStepperModule,
     MatToolbarModule,
+    MatIconModule,
+    MatSelectModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCSQMLteimv75SIbD39HpsDUxrgW6gZ2nY'}),
+    RouterModule.forRoot(
+      appRoutes
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

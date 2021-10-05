@@ -1,4 +1,4 @@
-export interface vaccine{
+export interface Vaccine{
   vaccineID: String;
   batchNumber: number;
   expiry: Date;
