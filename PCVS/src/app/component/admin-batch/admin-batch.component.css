@@ -3,10 +3,7 @@
 }
 
 .center-card {
-  width: 80%;
-  max-width: 800px;
-  margin-left: 00px;
-  margin-right: auto;
+  width: auto;
 }
 
 /* mat-grid-tile {

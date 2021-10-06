@@ -1,37 +1,37 @@
 <h1><b>Request Appointment</b></h1>
 <hr>
-<p>Select a vaccine to continue.</p>
+<p>Select a healthcare centre to continue.</p>
 <br>
 
-<!-- <div style="width: 100%;">
+<div style="width: 100%;">
   <p>
     <span><mat-icon class="sort-icon"> format_list_numbered</mat-icon></span>
     <mat-button-toggle-group appearance="legacy" name="sort" aria-label="Font Style" #sort="matButtonToggleGroup">
       <mat-button-toggle value="">Available</mat-button-toggle>
     </mat-button-toggle-group>
   </p>
-</div> -->
+</div>
 
 <!--all vaccine types-->
 <mat-card class="center-card" multi= "true">
   <mat-grid-list cols="5" rowHeight="40px">
-    <mat-grid-tile colspan="3"><div class="vac-tiles" style="font-size: 16px;">
-      <b>VACCINENAME</b>
+    <mat-grid-tile colspan="5"><div class="vac-tiles" style="font-size: 16px;">
+      <b>CentreName</b>
     </div></mat-grid-tile>
-    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>blur_on</mat-icon>Batches: QUANTITY</div></mat-grid-tile>
-    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
-      AVAILABLE
+    <mat-grid-tile colspan="5"><div class="vac-tiles"><mat-icon>location_on</mat-icon>ADDRESS</div></mat-grid-tile>
+    <mat-grid-tile colspan="2"><div class="vac-tiles"><mat-icon>location_city</mat-icon>
+      STATE
     </div></mat-grid-tile>
-    <mat-grid-tile colspan="5"><div class="vac-tiles"><mat-icon> store_mall_directory</mat-icon>
-      MANUFACTURER
+    <mat-grid-tile colspan="3"><div class="vac-tiles"><mat-icon> my_location</mat-icon>
+      POSTCODE
     </div></mat-grid-tile>
 
   </mat-grid-list>
   <mat-toolbar-row class="action-bar">
     <span class="spacer"></span>
-    <button mat-stroked-button color='accent' routerLink="centres/1"
+    <button mat-stroked-button color='accent' routerLink="1"
     style="display: block;margin-left: auto;margin-right: 0px;">
-    Select</button>
+    Manage Batches</button>
   </mat-toolbar-row >
 </mat-card>
 

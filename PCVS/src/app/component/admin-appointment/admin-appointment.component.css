@@ -3,16 +3,13 @@
 }
 
 .center-card {
-  width: 80%;
-  max-width: 800px;
-  margin-left: 00px;
-  margin-right: auto;
+  width: auto;
   padding-bottom: 2px;
 }
 
-mat-grid-tile {
+/* mat-grid-tile {
   background: lightblue;
-}
+} */
 
 .vac-tiles{
   color: rgb(85, 85, 85);

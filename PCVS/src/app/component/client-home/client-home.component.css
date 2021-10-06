@@ -1,14 +1,5 @@
-.example-spacer {
-  flex: 1 1 auto;
+mat-grid-tile {
+  background: lightblue;
+  border-radius: 3px;
 }
 
-.center-card {
-  width: 80%;
-  max-width: 800px;
-  margin-left: 200px;
-  margin-right: auto;
-}
-
-agm-map {
-  height: 300px;
-}

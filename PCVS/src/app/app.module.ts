@@ -19,7 +19,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table'
+import { AddBatchDialogueComponent } from './component/admin-batch-info/admin-batch-info.component';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -35,18 +39,32 @@ import { AdminBatchComponent } from './component/admin-batch/admin-batch.compone
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAppointmentComponent} from './component/admin-appointment/admin-appointment.component';
 import { AdminBatchInfoComponent } from './component/admin-batch-info/admin-batch-info.component';
-import { AdminAppointmentAppointComponent } from './component/admin-appointment-appoint/admin-appointment-appoint.component';
 import { AppointDialogComponent } from './component/admin-appointment/admin-appointment.component';
+import { ViewPatientDialogComponent } from './component/admin-appointment/admin-appointment.component';
+import { RegSuccessDialog } from './component/login/login.component';
+import { ClietCentreComponent } from './component/cliet-centre/cliet-centre.component';
+import { ClientBatchInfoComponent } from './component/client-batch-info/client-batch-info.component';
 
 const appRoutes: Routes = [
   {path:'login',component:LoginComponent},
   //{path: '',redirectTo: '/login', pathMatch: 'full' },
-  {path:'',redirectTo: '/admin/home', pathMatch: 'full' },
-  {path:'admin/home',component:AdminHomeComponent},
-  {path:'admin/vaccine',component:AdminBatchComponent},
-  {path:'admin/vaccine/batches',component:AdminBatchInfoComponent},
-  {path:'admin/appointment',component:AdminAppointmentComponent},
-  {path:'home',component:ClientNavComponent},
+  {path: 'admin',redirectTo: 'admin/home', pathMatch: 'full' },
+  {path:'admin',component:AdminNavComponent,
+    children:[
+      {path:'home',component:AdminHomeComponent},
+      {path:'vaccine',component:AdminBatchComponent},
+      {path:'vaccine/batches',component:AdminBatchInfoComponent},
+      {path:'appointment',component:AdminAppointmentComponent}
+    ]
+  },
+  {path:'patient',redirectTo: 'patient/home', pathMatch: 'full' },
+  {path:'patient',component:ClientNavComponent,
+    children:[
+      {path:'home',component:ClientHomeComponent},
+      {path:'vaccines',component:ClientVaccineComponent},
+      {path:'vaccines/centres/:id',component:ClietCentreComponent},
+      {path:'vaccines/centres/:id/:id',component:ClientBatchInfoComponent}
+    ]},
 ];
 
 @NgModule({
@@ -62,8 +80,12 @@ const appRoutes: Routes = [
     AdminBatchComponent,
     AdminAppointmentComponent,
     AdminBatchInfoComponent,
-    AdminAppointmentAppointComponent,
     AppointDialogComponent,
+    ViewPatientDialogComponent,
+    RegSuccessDialog,
+    AddBatchDialogueComponent,
+    ClietCentreComponent,
+    ClientBatchInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +108,10 @@ const appRoutes: Routes = [
     MatSidenavModule,
     MatGridListModule,
     MatButtonToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
+    MatTableModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCSQMLteimv75SIbD39HpsDUxrgW6gZ2nY'}),
     RouterModule.forRoot(
@@ -93,6 +119,7 @@ const appRoutes: Routes = [
     )
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

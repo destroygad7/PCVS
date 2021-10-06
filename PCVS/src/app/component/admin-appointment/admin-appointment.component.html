@@ -1,18 +1,4 @@
-<h1>Vaccine Appointments</h1>
-<ol>
-  <li>
-    <mat-form-field appearance="fill">
-      <mat-label>What's your name?</mat-label>
-      <input matInput [(ngModel)]="name">
-    </mat-form-field>
-  </li>
-  <li>
-    <button mat-raised-button (click)="openDialog()">Pick one</button>
-  </li>
-  <li *ngIf="animal">
-    You chose: <i>{{animal}}</i>
-  </li>
-</ol>
+<h1><b>Vaccine Appointments</b></h1>
 
 <mat-tab-group mat-align-tabs="start">
   <mat-tab label="New">
@@ -57,21 +43,10 @@
         <mat-toolbar class="toolbars">
           <mat-toolbar-row class="action-bar">
 
-            <button mat-stroked-button color='primary' routerLink="">
+            <button mat-stroked-button color='primary' (click)="openViewPatienttDialog()">
             View Patients Info</button>
             <span class="spacer"></span>
-
-            <form #dateForm="ngForm">
-              <mat-form-field appearance="fill" class="date-form">
-                <mat-label>Pick a date</mat-label>
-                <input matInput type="text" name="fullname" #fullname="ngModel" ngModel required minlength="3">
-                <mat-hint>Date</mat-hint>
-                <mat-error *ngIf="fullname.hasError('minlength')">Must be <strong>3 or more</strong> characters!</mat-error>
-                <mat-error *ngIf="fullname.errors?.required">Full Name is <strong>required</strong></mat-error>
-              </mat-form-field>
-
-            </form>
-            <button mat-stroked-button color='accent' routerLink="" class="toolbar-end-button">
+            <button mat-stroked-button color='accent' class="toolbar-end-button" (click)="openAppointDialog()">
               Appoint Batch</button>
           </mat-toolbar-row >
         </mat-toolbar>
@@ -82,10 +57,107 @@
   </mat-tab>
 
   <mat-tab label="Confirmed">
+    <div style="height: 20px;"></div>
+    <div style="width: 100%;">
+      <p>
+        <span><mat-icon class="sort-icon">visibility</mat-icon></span>
+        <mat-button-toggle-group appearance="legacy" name="show" aria-label="Font Style" #show="matButtonToggleGroup">
+          <mat-button-toggle value="">All</mat-button-toggle>
+          <mat-button-toggle value="">Selected</mat-button-toggle>
+        </mat-button-toggle-group>
+        <span><mat-icon class="sort-icon"> format_list_numbered</mat-icon></span>
+          <mat-button-toggle-group appearance="legacy" name="sort" aria-label="Font Style" #sort="matButtonToggleGroup">
+            <mat-button-toggle value="">Expiry</mat-button-toggle>
+            <mat-button-toggle value="">Pending</mat-button-toggle>
+            <mat-button-toggle value="">Available</mat-button-toggle>
+            <mat-button-toggle value="">Completed</mat-button-toggle>
+          </mat-button-toggle-group>
 
+      </p>
+      </div>
+
+      <!--all vaccine types-->
+      <mat-card class="center-card" multi= "true">
+        <mat-grid-list cols="5" rowHeight="40px">
+          <mat-grid-tile colspan="5"><div class="vac-tiles" style="font-size: 20px;">
+            <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon> VACCINATION_ID</b>
+          </div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles">Batch Info:</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>Batch Name</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>DATE</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>Vaccine Name</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>Manufacturer</div></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile ><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
+            AVAILABLE
+          </div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>hourglass_empty</mat-icon>
+            PENDING
+          </div></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>done_all</mat-icon>
+            Appointdate
+          </div></mat-grid-tile>
+
+        </mat-grid-list>
+        <mat-toolbar class="toolbars">
+          <mat-toolbar-row class="action-bar">
+            <span class="spacer"></span>
+            <button mat-stroked-button color='accent' class="toolbar-end-button" (click)="openSnackBar()">
+              Register Complete</button>
+          </mat-toolbar-row >
+        </mat-toolbar>
+
+      </mat-card>
+
+      <p style="text-align: center;">There are no appointed batch.</p>
   </mat-tab>
 
   <mat-tab label="Administrated">
+    <div style="height: 20px;"></div>
+    <div style="width: 100%;">
+      <p>
+        <span><mat-icon class="sort-icon">visibility</mat-icon></span>
+        <mat-button-toggle-group appearance="legacy" name="show" aria-label="Font Style" #show="matButtonToggleGroup">
+          <mat-button-toggle value="">All</mat-button-toggle>
+          <mat-button-toggle value="">Selected</mat-button-toggle>
+        </mat-button-toggle-group>
+        <span><mat-icon class="sort-icon"> format_list_numbered</mat-icon></span>
+          <mat-button-toggle-group appearance="legacy" name="sort" aria-label="Font Style" #sort="matButtonToggleGroup">
+            <mat-button-toggle value="">Expiry</mat-button-toggle>
+            <mat-button-toggle value="">Pending</mat-button-toggle>
+            <mat-button-toggle value="">Available</mat-button-toggle>
+            <mat-button-toggle value="">Completed</mat-button-toggle>
+          </mat-button-toggle-group>
 
+      </p>
+      </div>
+
+      <!--all vaccine types-->
+      <mat-card class="center-card" multi= "true">
+        <mat-grid-list cols="5" rowHeight="40px">
+          <mat-grid-tile colspan="5"><div class="vac-tiles" style="font-size: 20px;">
+            <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon> VACCINATION_ID</b>
+          </div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles">Batch Info:</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>Batch Name</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>DATE</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>Vaccine Name</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>Manufacturer</div></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile ><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
+            AVAILABLE
+          </div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>hourglass_empty</mat-icon>
+            PENDING
+          </div></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>done_all</mat-icon>
+            Appointdate
+          </div></mat-grid-tile>
+        </mat-grid-list>
+      </mat-card>
+
+      <p style="text-align: center;">There are completed batches.</p>
   </mat-tab>
 </mat-tab-group>

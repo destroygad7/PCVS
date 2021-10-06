@@ -8,7 +8,7 @@ import { CurrentUserService } from 'src/app/service/currentuser.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -215,4 +215,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   selector: 'reg-success-dialog',
   templateUrl: './RegSuccessDialog.html',
 })
-export class RegSuccessDialog {}
+export class RegSuccessDialog {
+  constructor(
+    public dialogRef: MatDialogRef<RegSuccessDialog>) {}
+  onClick(){
+    this.dialogRef.close();
+  }
+}

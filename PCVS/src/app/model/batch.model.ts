@@ -1,6 +1,6 @@
 export interface Batch{
-  vaccineID: String;
-  batchNumber: number;
+  batchID: String;
+  batchNumber: String;
   expiry: Date;
   quantity: number;
   pending: number;
