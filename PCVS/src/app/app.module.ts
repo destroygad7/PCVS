@@ -14,7 +14,11 @@ import { AgmCoreModule } from '@agm/core';
 import { } from '@google/maps';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatDialogModule, MatDialog,MatDialogRef} from  '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 import { AppComponent } from './app.component';
@@ -22,10 +26,6 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './component/login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { LoginPasswordComponent } from './component/login-password/login-password.component';
-import { RegisterAdminComponent } from './component/register-admin/register-admin.component';
-import { RegisterClientComponent } from './component/register-client/register-client.component';
-import { RegisterSelectComponent } from './component/register-select/register-select.component';
 import { ClientNavComponent } from './component/client-nav/client-nav.component';
 import { ClientHomeComponent } from './component/client-home/client-home.component';
 import { ClientVaccineComponent } from './component/client-vaccine/client-vaccine.component';
@@ -33,10 +33,20 @@ import { AdminHomeComponent } from './component/admin-home/admin-home.component'
 import { AdminNavComponent } from './component/admin-nav/admin-nav.component';
 import { AdminBatchComponent } from './component/admin-batch/admin-batch.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminAppointmentComponent} from './component/admin-appointment/admin-appointment.component';
+import { AdminBatchInfoComponent } from './component/admin-batch-info/admin-batch-info.component';
+import { AdminAppointmentAppointComponent } from './component/admin-appointment-appoint/admin-appointment-appoint.component';
+import { AppointDialogComponent } from './component/admin-appointment/admin-appointment.component';
 
 const appRoutes: Routes = [
   {path:'login',component:LoginComponent},
-  {path: '',redirectTo: '/login', pathMatch: 'full' }
+  //{path: '',redirectTo: '/login', pathMatch: 'full' },
+  {path:'',redirectTo: '/admin/home', pathMatch: 'full' },
+  {path:'admin/home',component:AdminHomeComponent},
+  {path:'admin/vaccine',component:AdminBatchComponent},
+  {path:'admin/vaccine/batches',component:AdminBatchInfoComponent},
+  {path:'admin/appointment',component:AdminAppointmentComponent},
+  {path:'home',component:ClientNavComponent},
 ];
 
 @NgModule({
@@ -44,16 +54,16 @@ const appRoutes: Routes = [
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    LoginPasswordComponent,
-    RegisterAdminComponent,
-    RegisterClientComponent,
-    RegisterSelectComponent,
     ClientNavComponent,
     ClientHomeComponent,
     ClientVaccineComponent,
     AdminHomeComponent,
     AdminNavComponent,
     AdminBatchComponent,
+    AdminAppointmentComponent,
+    AdminBatchInfoComponent,
+    AdminAppointmentAppointComponent,
+    AppointDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +81,11 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatIconModule,
     MatSelectModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatGridListModule,
+    MatButtonToggleModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCSQMLteimv75SIbD39HpsDUxrgW6gZ2nY'}),
     RouterModule.forRoot(

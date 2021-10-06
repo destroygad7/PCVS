@@ -1,0 +1,47 @@
+<h1>Manage Batch info</h1>
+<hr>
+<p>Bathes for VACCINE_NAME</p>
+<br>
+
+
+<div style="width: 100%;">
+  <p>
+    <span><mat-icon class="sort-icon"> format_list_numbered</mat-icon></span>
+    <mat-button-toggle-group appearance="legacy" name="sort" aria-label="Font Style" #sort="matButtonToggleGroup">
+      <mat-button-toggle value="">Expiry</mat-button-toggle>
+      <mat-button-toggle value="">Pending</mat-button-toggle>
+      <mat-button-toggle value="">Available</mat-button-toggle>
+      <mat-button-toggle value="">Completed</mat-button-toggle>
+    </mat-button-toggle-group>
+    &nbsp;&nbsp;&nbsp;
+    <button class="func-btn" mat-raised-button color="primary">New Batch</button>
+  </p>
+</div>
+
+
+<!--all vaccine types-->
+<mat-card class="center-card" multi= "true">
+  <mat-grid-list cols="7" rowHeight="40px">
+    <mat-grid-tile colspan="7"><div class="vac-tiles" style="font-size: 20px;">
+      <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon> BATCHID</b>
+    </div></mat-grid-tile>
+    <mat-grid-tile colspan="4"><div class="vac-tiles"><mat-icon>date_range</mat-icon>Expiry: DATE</div></mat-grid-tile>
+    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
+      AVAILABLE
+    </div></mat-grid-tile>
+    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>hourglass_empty</mat-icon>
+      PENDING
+    </div></mat-grid-tile>
+    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>done_all</mat-icon>
+      ADMINISTRATED
+    </div></mat-grid-tile>
+  </mat-grid-list>
+  <mat-toolbar-row class="action-bar">
+    <span class="spacer"></span>
+    <button mat-stroked-button color='accent' routerLink=""
+    style="display: block;margin-left: auto;margin-right: 0px;">
+    View Batch Info</button>
+  </mat-toolbar-row >
+</mat-card>
+
+<p style="text-align: center;">There are no batches.</p>

@@ -29,19 +29,8 @@ export class UserService {
     return false;
   }
 
-  checkPassword(email:String,password:String){
-    let user =this.getUserByEmail(email);
-    if (user!=undefined){
-      if(user.password === password){
-        return true;
-      }
-    }
-    return false;
-  }
-
   addAdmin(userID: String,username: String,email: String,password: String,
-    name: String,centreID: String, staffID: String, phone:number, gender:number,
-    acctype: String) {
+    name: String,centreID: String, staffID: String) {
     const user:User  = {
       userID:userID,
       username:username,
@@ -52,8 +41,7 @@ export class UserService {
       staffID:staffID,
       ID: '',
       IDtype: '',
-      phone: phone,
-      gender: gender,
+      phone: 0,
       first: false,
       acctype: "admin"
     }
@@ -63,8 +51,7 @@ export class UserService {
 
   addPatient(userID: String,username: String,email: String,
     password: String,name: String,ID: String,IDtype: String,
-    phone: number,gender: number,first: boolean,
-    acctype: String){
+    phone: number,first: boolean){
       const user:User = {
       userID:userID,
       username:username,
@@ -76,7 +63,6 @@ export class UserService {
       ID: ID,
       IDtype: IDtype,
       phone: phone,
-      gender: gender,
       first: first,
       acctype: "patient"
       }
@@ -84,7 +70,7 @@ export class UserService {
       this.usersUpdated.next([...this.users]);
   }
 
-  getPostUpdateListener()
+  getUserUpdateListener()
   {
     return this.usersUpdated.asObservable();
   }

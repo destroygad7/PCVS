@@ -56,10 +56,10 @@ style="margin-top: 10em;">
 
 <!--Client Register-->
 <mat-card class="login-card"
-*ngIf="page===0"
+*ngIf="page===2"
 style="margin-top: 2em;">
   <div>
-    <h1>Register 2</h1>
+    <h1>Register</h1>
     <mat-progress-bar mode="determinate" value={{progress}}></mat-progress-bar>
     <br>
     <p>
@@ -74,7 +74,7 @@ style="margin-top: 2em;">
         <mat-error *ngIf="username.errors?.required">Username is <strong>required</strong></mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(35)">
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(37)">
         <mat-label>Enter your password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" name="password" #password="ngModel" ngModel required minlength="6">
         <mat-hint>Password must be 6 or more characters</mat-hint>
@@ -85,17 +85,25 @@ style="margin-top: 2em;">
         <mat-error *ngIf="password.hasError('minlength')">Must be <strong>6 or more</strong> characters!</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(45)">
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(25)">
+        <mat-label>Enter your full name</mat-label>
+        <input matInput type="text" name="fullname" #fullname="ngModel" ngModel required minlength="3">
+        <mat-hint>Name must be 3 or more characters</mat-hint>
+        <mat-error *ngIf="fullname.hasError('minlength')">Must be <strong>3 or more</strong> characters!</mat-error>
+        <mat-error *ngIf="fullname.errors?.required">Full Name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(50)">
         <mat-label>Select idendity type:</mat-label>
-        <mat-select ngModel name="type" #type="ngModel" required [(ngModel)]="optionValue">
+        <mat-select ngModel name="type" #type="ngModel" required [(ngModel)]="ICoptionValue">
           <mat-option value="IC">New IC</mat-option>
           <mat-option value="Passport">Passport</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="login-card-full-width"
-      (focusout)="setProgress(55)"
-      *ngIf="optionValue == 'Passport'">
+      (focusout)="setProgress(63)"
+      *ngIf="ICoptionValue == 'Passport'">
         <mat-label>Enter your Passport No.</mat-label>
         <input type="text" matInput name="passport"
           ngModel #passport="ngModel"
@@ -111,101 +119,244 @@ style="margin-top: 2em;">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="login-card-full-width"
-      (focusout)="setProgress(55)"
-      *ngIf="optionValue == 'IC'">
+      (focusout)="setProgress(63)"
+      *ngIf="ICoptionValue == 'IC'">
         <mat-label>Enter your IC No.</mat-label>
-        <input type="text" matInput name="IC"
-          ngModel #IC="ngModel"
+        <input type="tel" matInput name="ICno"
+          ngModel #ICno="ngModel"
           pattern="[0-9]{12}"
           placeholder="Eg. 901010105555" required>
         <mat-hint>Make sure your IC No. is valid.</mat-hint>
-        <mat-error *ngIf="IC.errors?.pattern">
+        <mat-error *ngIf="ICno.errors?.pattern">
           Please enter a valid IC No.!
         </mat-error>
-        <mat-error *ngIf="IC.errors?.required">
+        <mat-error *ngIf="ICno.errors?.required">
           IC No. is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 
-      <button type="submit" mat-raised-button class="login-button" color="accent">Proceed</button>
+      <mat-form-field appearance="fill" class="login-card-full-width"
+      (focusout)="setProgress(75)">
+        <mat-label>Enter your phone No.</mat-label>
+        <input type="tel" matInput name="phone"
+          ngModel #phone="ngModel"
+          pattern="[0-9]{10,11}"
+          placeholder="Eg. 0123335433" required>
+        <mat-hint>Make sure your phone No. is valid.</mat-hint>
+        <mat-error *ngIf="phone.errors?.pattern">
+          Please enter a valid phone No.!
+        </mat-error>
+        <mat-error *ngIf="phone.errors?.required">
+          Phone No. is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button class="login-button" color="accent"
+        [disabled]="!patientForm.valid">
+      Proceed</button>
       </form>
   </div>
 </mat-card>
 
+<!--vaccinated? patient-->
 <mat-card class="login-card"
 *ngIf="page===3"
 style="margin-top: 10em;">
 <div>
   <h1>Register</h1>
-  <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" value={{progress}}></mat-progress-bar>
   <br>
   <p style="text-align: center;">
     Hang on, almost there...
   </p>
   <br>
   <h2>You have...</h2>
-  <button mat-stroked-button class="patient-button" color="primary">not vaccinated yet.</button>
-  <button mat-stroked-button class="admin-button" color="primary">taken first dose.</button>
-</div>
+  <form (submit)="registerPatient()">
+    <button (click)="setFirstDose(false)" mat-stroked-button
+    class="patient-button" color="primary" type="submit">
+    Not vaccinated yet.</button>
+    <button (click)="setFirstDose(true)" mat-stroked-button
+    class="admin-button" color="primary" type="submit">
+    Taken first dose.</button>
+  </form>
+  </div>
 </mat-card>
 
-<!--admin register-->
+<!--admin verify and loc-->
 <mat-card class="login-card"
 *ngIf="page===4"
 style="margin-top: 5em;">
   <div>
     <h1>Register</h1>
-    <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+    <mat-progress-bar mode="determinate" value={{progress}}></mat-progress-bar>
+    <br>
+    <p *ngIf="!(Auth==='123456')">
+      Before registering as admin, please verify.
+    </p>
+    <p *ngIf="(Auth==='123456')">Auth code verified. Please fill in the field.</p>
+      <mat-form-field appearance="fill" class="login-card-full-width"
+      *ngIf="!(Auth==='123456')">
+        <mat-label>Enter auth code for admin..</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" name="admincode" #admincode="ngModel"
+        ngModel required minlength="6" [(ngModel)]="Auth">
+        <mat-hint>Auth code must be 6 or more characters</mat-hint>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="admincode.errors?.required">Auth code is <strong>required</strong></mat-error>
+        <mat-error *ngIf="admincode.hasError('minlength')">Must be <strong>6 or more</strong> characters!</mat-error>
+      </mat-form-field>
+
+      <p>
+        <mat-checkbox name="newCentreSelect" *ngIf="(Auth==='123456')" [formControl]="newCentreSelect">New healthcare centre</mat-checkbox>
+      </p>
+
+      <form (submit)="existingCentre(AdminCentreForm)" #AdminCentreForm="ngForm" *ngIf="(Auth==='123456')&&!newCentreSelect.value">
+      <mat-form-field appearance="fill" class="login-card-full-width"
+      (focusout)="setProgress(50)" *ngIf="(Auth==='123456')">
+        <mat-label>Select from existing centres:</mat-label>
+        <mat-select ngModel name="centre" #centre="ngModel" required
+        [disabled]="newCentreSelect.value">
+          <mat-option *ngFor="let centre of centres" [value]="centre.centreID">
+            <b>{{centre.centreName}}</b>, {{centre.centreState}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button type="submit" mat-raised-button class="login-button" color="accent"
+        [disabled]="!AdminCentreForm.valid">
+      Proceed</button>
+      </form>
+
+      <form (submit)="newCentre(AdminForm)" #AdminForm="ngForm" *ngIf="(Auth==='123456')&&newCentreSelect.value">
+      <mat-form-field appearance="fill" class="login-card-full-width"
+      (focusout)="setProgress(25)" *ngIf="(Auth==='123456')&&newCentreSelect.value">
+        <mat-label>Enter centre name</mat-label>
+        <input matInput type="text" name="centreName" #centreName="ngModel" ngModel required minlength="6">
+        <mat-hint>Centre name must be 4 or more characters</mat-hint>
+        <mat-error *ngIf="centreName.hasError('minlength')">Must be <strong>4 or more</strong> characters!</mat-error>
+        <mat-error *ngIf="centreName.errors?.required">Centre name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="login-card-full-width"
+      (focusout)="setProgress(35)" *ngIf="(Auth==='123456'&&newCentreSelect.value)">
+        <mat-label>Enter centre address</mat-label>
+        <input matInput type="text" name="centreAddress" #centreAddress="ngModel" ngModel required minlength="6">
+        <mat-hint>Enter a valid address.</mat-hint>
+        <mat-error *ngIf="centreAddress.errors?.required">Centre name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="login-card-full-width"
+      (focusout)="setProgress(45)" *ngIf="(Auth==='123456'&&newCentreSelect.value)">
+        <mat-label>Enter centre postcode</mat-label>
+        <input type="tel" matInput name="postcode"
+          ngModel #postcode="ngModel"
+          pattern="[0-9]{5}"
+          placeholder="Eg. 51000" required>
+        <mat-hint>Make sure your postcode is valid.</mat-hint>
+        <mat-error *ngIf="postcode.errors?.pattern">
+          Please enter a valid postcode!
+        </mat-error>
+        <mat-error *ngIf="postcode.errors?.required">
+          Postcode No. is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="login-card-full-width"
+      (focusout)="setProgress(55)" *ngIf="(Auth==='123456'&&newCentreSelect.value)">
+        <mat-label>Enter centre State</mat-label>
+        <input matInput type="text" name="centreState" #centreState="ngModel" ngModel required minlength="6">
+        <mat-hint>Enter a valid State.</mat-hint>
+        <mat-error *ngIf="centreState.errors?.required">Centre name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button class="login-button" color="accent"
+        [disabled]="!AdminForm.valid">
+      Proceed</button>
+    </form>
+  </div>
+</mat-card>
+
+<!--admin register-->
+<mat-card class="login-card"
+*ngIf="page===5"
+style="margin-top: 5em;">
+  <div>
+    <h1>Register</h1>
+    <mat-progress-bar mode="determinate" value={{progress}}></mat-progress-bar>
     <br>
     <p>
-        Fill in the fields. Fields with * are required.
+      Please fill in the fields.
     </p>
+    <form (submit)="regAdmin(AdminForm)" #AdminForm="ngForm">
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(60)">
+        <mat-label>Enter your username</mat-label>
+        <input matInput type="text" name="username" #username="ngModel" ngModel required minlength="6">
+        <mat-hint>Username must be 6 or more characters</mat-hint>
+        <mat-error *ngIf="username.hasError('minlength')">Must be <strong>6 or more</strong> characters!</mat-error>
+        <mat-error *ngIf="username.errors?.required">Username is <strong>required</strong></mat-error>
+      </mat-form-field>
 
-    <br>
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(70)">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" name="password" #password="ngModel" ngModel required minlength="6">
+        <mat-hint>Password must be 6 or more characters</mat-hint>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.errors?.required">Password is <strong>required</strong></mat-error>
+        <mat-error *ngIf="password.hasError('minlength')">Must be <strong>6 or more</strong> characters!</mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill" class="login-card-full-width">
-      <mat-label>Please enter your Email..</mat-label>
-    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-           placeholder="Eg. email@example.com">
-    <mat-hint>hint goes here</mat-hint>
-    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="emailFormControl.hasError('required')">
-      Email is <strong>required</strong>
-    </mat-error>
-    </mat-form-field>
-    <button type="submit" mat-raised-button class="login-button" color="accent">Proceed</button>
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(80)">
+        <mat-label>Enter your full name</mat-label>
+        <input matInput type="text" name="fullname" #fullname="ngModel" ngModel required minlength="3">
+        <mat-hint>Name must be 3 or more characters</mat-hint>
+        <mat-error *ngIf="fullname.hasError('minlength')">Must be <strong>3 or more</strong> characters!</mat-error>
+        <mat-error *ngIf="fullname.errors?.required">Full Name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(90)">
+        <mat-label>Enter your StaffID</mat-label>
+        <input matInput type="text" name="staffID" #staffID="ngModel" ngModel required minlength="3">
+        <mat-hint>Name must be 3 or more characters</mat-hint>
+        <mat-error *ngIf="staffID.hasError('minlength')">Must be <strong>3 or more</strong> characters!</mat-error>
+        <mat-error *ngIf="staffID.errors?.required">Full Name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button class="login-button" color="accent"
+        [disabled]="!AdminForm.valid">
+      Proceed</button>
+    </form>
   </div>
 </mat-card>
 
 <!--if user found-->
 <mat-card class="login-card"
-*ngIf="page===5"
-style="margin-top: 5em;">
+*ngIf="page===6"
+style="margin-top: 10em;">
   <div>
-    <h1>Welcome back, name</h1>
+    <h1>Welcome back, {{placeholderName}}.</h1>
     <p>
         Make sure to keep your password private.
         Never share it to anyone.
+        <a href="">Try another Email</a>.
     </p>
 
     <br>
-
-    <mat-form-field appearance="fill" class="login-card-full-width">
-      <mat-label>Please enter your Password..</mat-label>
-    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-           placeholder="Eg. email@example.com">
-    <mat-hint>hint goes here</mat-hint>
-    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="emailFormControl.hasError('required')">
-      Password is <strong>required</strong>
-    </mat-error>
-    </mat-form-field>
-    <button type="submit" mat-raised-button class="login-button" color="accent">
-      Login
-    </button>
+    <form (submit)="login(LoginForm)" #LoginForm="ngForm">
+      <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(45)">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" name="password" #password="ngModel" ngModel required minlength="6">
+        <mat-hint> </mat-hint>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.errors?.required">Password is <strong>required</strong></mat-error>
+        <mat-error *ngIf="password.hasError('minlength')">Your password should be <strong>6 or more</strong> characters!</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button class="login-button" color="accent"
+      [disabled]="!LoginForm.valid">
+        Login
+      </button>
+    </form>
   </div>
 </mat-card>

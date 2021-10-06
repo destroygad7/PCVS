@@ -1,15 +1,26 @@
-<p>Vaccine batches</p>
+<h1>Manage Vaccines</h1>
+<hr>
+<p>Select vaccine to manage the batches.</p>
+<br>
+
+<!--all vaccine types-->
 <mat-card class="center-card" multi= "true">
-  <h2>Vaccine Type</h2>
-  <h3>id</h3>
-  <h3>manufacturer</h3>
-  <h3>batch number</h3>
-  <h3>expiry</h3>
-  <h3>quantity</h3>
+  <mat-grid-list cols="5" rowHeight="40px">
+    <mat-grid-tile colspan="4"><div class="vac-tiles" style="font-size: 16px;">
+      <b>VACCINENAME</b>
+    </div></mat-grid-tile>
+    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>blur_on</mat-icon>Batches: QUANTITY</div></mat-grid-tile>
+    <mat-grid-tile colspan="5"><div class="vac-tiles"><mat-icon> store_mall_directory</mat-icon>
+      MANUFACTURER
+    </div></mat-grid-tile>
+  </mat-grid-list>
   <mat-toolbar-row class="action-bar">
     <span class="spacer"></span>
-    <button mat-raised-button color='primary'
+    <button mat-stroked-button color='accent' routerLink="/admin/vaccine/batches"
     style="display: block;margin-left: auto;margin-right: 0px;">
-    Select</button>
-  </mat-toolbar-row>
+    Manage Batches</button>
+  </mat-toolbar-row >
 </mat-card>
+
+
+<p style="text-align: center;">There are no vaccines.</p>

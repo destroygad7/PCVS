@@ -1,9 +1,17 @@
-<mat-tab-group>
-  <mat-tab label="Home">
-    <app-admin-home></app-admin-home>
-  </mat-tab>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" opened>
+    <a routerLink="/admin/home" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">home</mat-icon>Home</div></a>
+    <a routerLink="/admin/vaccine" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">list</mat-icon>Manage Vaccines</div></a>
+    <a routerLink="/admin/appointment" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">event</mat-icon>Vaccine Appointments</div></a>
+    <a mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">perm_identity</mat-icon>Privacy & Security</div></a>
+    <a mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">settings</mat-icon>Languages & Settings</div></a>
+    <hr>
+    <a mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">bug_report</mat-icon>Bugs & Feedbacks</div></a>
+    <a routerLink="/login" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">launch</mat-icon>Logout</div></a>
+  </mat-drawer>
 
-  <mat-tab label="Vaccines">
-    <app-admin-batch></app-admin-batch>
-  </mat-tab>
-</mat-tab-group>
+  <div class="sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>

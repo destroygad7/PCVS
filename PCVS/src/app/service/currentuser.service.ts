@@ -22,7 +22,6 @@ export class CurrentUserService {
       ID:"",
       IDtype:"",
       phone:0,
-      gender:0,
       first:false,
     };
   }
@@ -36,7 +35,7 @@ export class CurrentUserService {
   }
 
   getName(){
-    return this.user.email
+    return this.user.name
   }
 
   getUserID(){
@@ -65,10 +64,6 @@ export class CurrentUserService {
 
   getPhone(){
     return this.user.phone
-  }
-
-  getGender(){
-    return this.user.gender
   }
 
   getFirst(){
@@ -104,7 +99,6 @@ export class CurrentUserService {
       ID:"",
       IDtype:"",
       phone:0,
-      gender:0,
       first:false,
     };
     this.user=user;

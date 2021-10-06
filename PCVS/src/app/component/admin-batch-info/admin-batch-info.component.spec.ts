@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterAdminComponent } from './register-admin.component';
+import { AdminBatchInfoComponent } from './admin-batch-info.component';
 
-describe('RegisterAdminComponent', () => {
-  let component: RegisterAdminComponent;
-  let fixture: ComponentFixture<RegisterAdminComponent>;
+describe('AdminBatchInfoComponent', () => {
+  let component: AdminBatchInfoComponent;
+  let fixture: ComponentFixture<AdminBatchInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisterAdminComponent ]
+      declarations: [ AdminBatchInfoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterAdminComponent);
+    fixture = TestBed.createComponent(AdminBatchInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
