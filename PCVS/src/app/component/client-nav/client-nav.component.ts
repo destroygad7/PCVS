@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentUserService } from 'src/app/service/currentuser.service';
 
 @Component({
   selector: 'app-client-nav',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private currentUserService:CurrentUserService) { }
 
   ngOnInit(): void {
   }
 
+  isLogin() {
+    return this.currentUserService.getLoginStatus();
+  }
+
+  logout() {
+    this.currentUserService.logout();
+    console.log("logout");
+    return;
+  }
 }

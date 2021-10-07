@@ -6,7 +6,36 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private users:User [] = [];
+  private users:User [] = [
+    {
+      userID: "1",
+      username: "1",
+      email: "a@aa.aa",
+      password: "111111",
+      name: "1myname",
+      acctype: "patient",
+      centreID: "",
+      staffID: "",
+      ID: "123123123",
+      IDtype: "Type",
+      phone: 11111111,
+      first: true
+    },
+    {
+      userID: "1",
+      username: "1",
+      email: "z@zz.zz",
+      password: "111111",
+      name: "1myname",
+      acctype: "admin",
+      centreID: "1",
+      staffID: "1",
+      ID: "",
+      IDtype: "",
+      phone: 0,
+      first: false
+    }
+  ];
   private usersUpdated = new Subject<User[]>();
 
   getUsers(){

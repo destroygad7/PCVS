@@ -1,6 +1,6 @@
-<h1><b>Manage Batch info</b></h1>
+<h1><b>Batch Selection</b></h1>
 <hr>
-<p>Bathes for VACCINE_NAME</p>
+<p>Bathes for {{vacName}}</p>
 <br>
 
 <!--
@@ -18,31 +18,30 @@
   </p>
 </div> -->
 
-
-<!--all vaccine types-->
-<mat-card class="center-card" multi= "true">
-  <mat-grid-list cols="7" rowHeight="40px">
-    <mat-grid-tile colspan="7"><div class="vac-tiles" style="font-size: 20px;">
-      <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon> BATCHID</b>
+<mat-card class="center-card" multi= "true" *ngFor="let batch of batches">
+  <mat-grid-list cols="6" rowHeight="40px">
+    <mat-grid-tile colspan="6"><div class="vac-tiles" style="font-size: 20px;">
+      <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon>{{batch.batchNumber}}</b>
     </div></mat-grid-tile>
-    <mat-grid-tile colspan="4"><div class="vac-tiles"><mat-icon>date_range</mat-icon>Expiry: DATE</div></mat-grid-tile>
+    <mat-grid-tile colspan="3"><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{batch.expiry.toLocaleDateString("en-US")}}</div></mat-grid-tile>
     <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
-      AVAILABLE
+      Available: {{batch.quantity-batch.pending-batch.administered}}
     </div></mat-grid-tile>
     <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>hourglass_empty</mat-icon>
-      PENDING
+      Booked: {{batch.pending}}
     </div></mat-grid-tile>
     <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>done_all</mat-icon>
-      ADMINISTRATED
+      Completed: {{batch.administered}}
     </div></mat-grid-tile>
   </mat-grid-list>
   <mat-toolbar-row class="action-bar">
     <span class="spacer"></span>
-    <button mat-stroked-button color='accent' routerLink=""
-    style="display: block;margin-left: auto;margin-right: 0px;">
+    <button mat-stroked-button color='accent' (click)="openAppointDialog(batch.batchID)"
+    style="display: block;margin-left: auto;margin-right: 0px;"
+    [disabled]="checkAppointed(batch.batchID)">
     Make Appointment</button>
   </mat-toolbar-row >
 </mat-card>
 
-<p style="text-align: center;">There are no batches.</p>
+<p *ngIf="batches.length<1" style="text-align: center;">There are no batches.</p>
 

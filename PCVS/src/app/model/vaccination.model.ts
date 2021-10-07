@@ -1,8 +1,12 @@
+import { Batch } from "./batch.model";
+import { User } from "./user.model";
+import { Centre } from "./centre.model";
+
 export interface Vaccination{
   vaccinationID: String;
-  batchID: String;
-  centreID: String;
-  userID: String;
-  status: String; //0=pending 1=approve 2=denied 4=completed
+  batch: Batch;
+  centre: Centre;
+  user: User;
+  status: String; //pending approved completed
   Appointdate: Date;
 }

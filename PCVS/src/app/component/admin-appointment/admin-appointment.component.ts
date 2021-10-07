@@ -1,26 +1,11 @@
 import { Component, OnInit,Inject} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import {MatSnackBar} from '@angular/material/snack-bar';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}
-];
-
-
-export interface DialogData {
-  selecteddate: Date;
-}
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import { VaccineService } from 'src/app/service/vaccine.service';
+import { VaccinationService } from 'src/app/service/vaccination.service';
+import { CurrentUserService } from 'src/app/service/currentuser.service';
+import { Vaccination } from 'src/app/model/vaccination.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-appointment',
@@ -30,106 +15,76 @@ export interface DialogData {
 export class AdminAppointmentComponent implements OnInit {
 
   selecteddate: "" | undefined;
-  durationInMiliSeconds = 1000;
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+  durationInMiliSeconds = 3000;
+  batchID:String="";
+  vacName:String="";
+  vaccinations:Vaccination[] = [];
+  private sub: any;
+
+  constructor(private route: ActivatedRoute, public vaccinationService:VaccinationService,
+    public currentUserService:CurrentUserService, public vaccineService:VaccineService,public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-  }
-  openAppointDialog(): void {
-    const dialogRef = this.dialog.open(AppointDialogComponent, {
-      width: '250px',
-      data: {selecteddate: this.selecteddate}
+    this.sub = this.route.params.subscribe(params => {
+      this.batchID = params['batchID'];
+      this.vacName = params['vacname'];
     });
+    this.vaccinations = this.vaccinationService.getVaccinations();
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.selecteddate = result;
-      console.log(this.selecteddate);
-    });
-  }
-  openViewPatienttDialog(): void {
-    const dialogRef = this.dialog.open(ViewPatientDialogComponent, {
-      width: '800px',
-      data: {selecteddate: this.selecteddate}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-  openSnackBar() {
+  openCompleteSnackBar() {
     this._snackBar.openFromComponent(AdminCompleteSnackBarComponent, {
       duration: this.durationInMiliSeconds,
     });
   }
-
-}
-
-@Component({
-  selector: 'admin-appoint-dialog',
-  templateUrl: './admin-appoint-dialog.html',
-  providers: [
-    { provide: MatDialog, useClass: AppointDialogComponent },
-  ],
-
-})
-export class AppointDialogComponent implements OnInit{
-
-  verify=true;
-
-  constructor(
-    public dialogRef: MatDialogRef<AppointDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  openApprovedSnackBar() {
+    this._snackBar.openFromComponent(AdminApprovedSnackBarComponent, {
+      duration: this.durationInMiliSeconds,
+    });
   }
 
-  onEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
-    let date: Date = new Date()
-    if(event.value!=undefined){
-      if (date>event.value){
-        this.verify = true;
-        return;
-      }
-      this.verify = false;
-      return}
-    this.verify = true;
+  onApprove(vacID:String){
+    console.log("set");
+    let vac = this.vaccinationService.getVaccinationbyID(vacID);
+    if (vac!=undefined){
+      this.vaccinationService.approveVaccination(vac);
+      console.log("updated to approved");
+      this. openApprovedSnackBar();
+      this.vaccinations = this.vaccinationService.getVaccinations();
+    };
   }
-  ngOnInit() {
+
+  onComplete(vacID:String){
+    let vac = this.vaccinationService.getVaccinationbyID(vacID);
+    if (vac!=undefined){
+      this.vaccinationService.completeVaccination(vac);
+      console.log("updated to completed");
+      this.openCompleteSnackBar();
+      this.vaccinations = this.vaccinationService.getVaccinations();
+    };
   }
-}
 
-
-@Component({
-  selector: 'admin-viewpatients-dialog',
-  templateUrl: './admin-viewpatients-dialog.html',
-  styles: [`
-    .patient-table {
-      width: 100%;
-    }
-    .content {
-      padding-top: 5px;
-      padding-bottom: 10px;
-    }
-  `],
-  providers: [
-    { provide: MatDialog, useClass: AppointDialogComponent },
-  ],
-
-})
-export class ViewPatientDialogComponent{
-  constructor(
-    public dialogRef: MatDialogRef<AppointDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  displayedColumns: string[] = ['position', 'name', 'weight'];
-  dataSource = ELEMENT_DATA;
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  getVaccineNamebyBatchID(batchID: String){
+    return this.vaccineService.getVaccineNamebyBatchID(batchID);
   }
+
+  getManufacturerbyBatchID(batchID: String){
+    return this.vaccineService.getManufacturerbyBatchID(batchID);
+  }
+
+
+
+    // openViewPatienttDialog(): void {
+  //   const dialogRef = this.dialog.open(ViewPatientDialogComponent, {
+  //     width: '800px',
+  //     data: {selecteddate: this.selecteddate}
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //   });
+  // }
+
 }
 
 @Component({
@@ -141,4 +96,68 @@ export class ViewPatientDialogComponent{
     }
   `],
 })
-export class AdminCompleteSnackBarComponent {}
+export class AdminCompleteSnackBarComponent {
+  constructor(
+    public snackBarRef: MatSnackBarRef<AdminCompleteSnackBarComponent>){}
+}
+
+@Component({
+  selector: './admin-approved-snack-bar',
+  templateUrl: './admin-approved-snack-bar.html',
+  styles: [`
+    .snack-bar {
+      color: hotpink;
+    }
+  `],
+})
+export class AdminApprovedSnackBarComponent {
+  constructor(
+    public snackBarRef: MatSnackBarRef<AdminApprovedSnackBarComponent>){}
+}
+
+
+// export interface PeriodicElement {
+//   name: string;
+//   position: number;
+//   weight: number;
+//   symbol: string;
+// }
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+//   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+//   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+//   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+//   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}
+// ];
+
+// @Component({
+//   selector: 'admin-viewpatients-dialog',
+//   templateUrl: './admin-viewpatients-dialog.html',
+//   styles: [`
+//     .patient-table {
+//       width: 100%;
+//     }
+//     .content {
+//       padding-top: 5px;
+//       padding-bottom: 10px;
+//     }
+//   `],
+//   providers: [
+//     { provide: MatDialog, useClass: AppointDialogComponent },
+//   ],
+
+// })
+// export class ViewPatientDialogComponent{
+//   constructor(
+//     public dialogRef: MatDialogRef<AppointDialogComponent>,
+//     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+//   displayedColumns: string[] = ['position', 'name', 'weight'];
+//   dataSource = ELEMENT_DATA;
+
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+// }
+
+

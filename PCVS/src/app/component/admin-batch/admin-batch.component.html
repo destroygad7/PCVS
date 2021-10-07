@@ -4,23 +4,20 @@
 <br>
 
 <!--all vaccine types-->
-<mat-card class="center-card" multi= "true">
+<mat-card class="center-card" multi= "true" *ngFor="let vaccine of vaccines">
   <mat-grid-list cols="5" rowHeight="40px">
     <mat-grid-tile colspan="4"><div class="vac-tiles" style="font-size: 16px;">
-      <b>VACCINENAME</b>
+      <b>{{vaccine.vaccineName}}</b>
     </div></mat-grid-tile>
-    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>blur_on</mat-icon>Batches: QUANTITY</div></mat-grid-tile>
+    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>blur_on</mat-icon>Batches: {{getTotalBatches(vaccine)}}</div></mat-grid-tile>
     <mat-grid-tile colspan="5"><div class="vac-tiles"><mat-icon> store_mall_directory</mat-icon>
-      MANUFACTURER
+      {{vaccine.manufacturer}}
     </div></mat-grid-tile>
   </mat-grid-list>
   <mat-toolbar-row class="action-bar">
     <span class="spacer"></span>
-    <button mat-stroked-button color='accent' routerLink="/admin/vaccine/batches"
+    <button mat-stroked-button color='accent' routerLink="/admin/vaccine/{{vaccine.vaccineName}}/batches"
     style="display: block;margin-left: auto;margin-right: 0px;">
     Manage Batches</button>
   </mat-toolbar-row >
 </mat-card>
-
-
-<p style="text-align: center;">There are no vaccines.</p>

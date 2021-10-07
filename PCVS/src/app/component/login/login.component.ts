@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,9 @@ export class LoginComponent implements OnInit {
 
   centres:Centre[] = [];
   private centreSub:Subscription | undefined;
+  private sub: any;
 
+  durationInMiliSeconds = 3000;
   inputEmail='';
   inputUser='';
   inputName='';
@@ -37,12 +41,13 @@ export class LoginComponent implements OnInit {
   newCentreSelect=new FormControl(false);
   ICoptionValue:any;
   Auth='';
-
   centre='';
+  centreID='';
+  vacName='';
 
-  constructor(public userService:UserService,
+  constructor(public userService:UserService, private route:ActivatedRoute,
     public currentUserService:CurrentUserService, public centresService:CentresService,
-    private router: Router, public dialog: MatDialog) {
+    private router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) {
       this.page=0;
     }
   emailFormControl = new FormControl('', [
@@ -59,9 +64,21 @@ export class LoginComponent implements OnInit {
      .subscribe((centres:Centre[]) => {
        this.centres=centres;
      });
+
+     this.sub = this.route.params.subscribe(params => {
+         this.centreID = params['centreID'];
+         this.vacName = params['vacname'];
+      })
+      console.log(this.centreID);
+      console.log(this.vacName);
   }
   ngOnDestroy(){
     this.centreSub?.unsubscribe();
+  }
+  openSnackBar() {
+    this._snackBar.openFromComponent(InvalidLoginSnackbarComponent, {
+      duration: this.durationInMiliSeconds,
+    });
   }
 
   //form controll
@@ -126,7 +143,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(form: NgForm){
-    if (form.invalid){console.log("invalid login detail");return;}
+    if (form.invalid){this.openSnackBar();console.log("invalid login detail");return;}
     if (this.currentUserService.login(this.inputEmail,form.value.password)){
       console.log("successful login");
       form.reset();
@@ -134,9 +151,25 @@ export class LoginComponent implements OnInit {
       console.log(this.currentUserService.getLoginStatus());
       console.log(this.currentUserService.isAdmin());
 
-      this.page=0;
+      if (!this.currentUserService.isAdmin()){
+
+        if (this.vacName!=undefined && this.centreID!=undefined){
+          this.router.navigate(['/patient/vaccines/centres/',this.vacName,this.centreID]);
+          return;
+        }
+        else {
+          this.router.navigate(['/patient/home']);
+          return;
+        }
+      }
+      if (this.currentUserService.isAdmin()){
+        this.router.navigate(['/admin/home']);
+
+      }
+      // this.page=0;
       return;
     }
+    this.openSnackBar();
     console.log("wrong password?");
     form.reset();
     return;
@@ -222,3 +255,14 @@ export class RegSuccessDialog {
     this.dialogRef.close();
   }
 }
+
+@Component({
+  selector: './invalid-login-snack-bar',
+  templateUrl: './invalid-login-snack-bar.html',
+  styles: [`
+    .snack-bar {
+      color: hotpink;
+    }
+  `],
+})
+export class InvalidLoginSnackbarComponent {}

@@ -5,6 +5,7 @@
 .center-card {
   width: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 
 /* mat-grid-tile {

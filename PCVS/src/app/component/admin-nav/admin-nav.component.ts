@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentUserService } from 'src/app/service/currentuser.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-nav',
@@ -8,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class AdminNavComponent implements OnInit {
 
   showFiller = false;
-  constructor() { }
+  constructor(private router:Router, private currentUserService:CurrentUserService) { }
 
   ngOnInit(): void {
+    // if (!this.currentUserService.isAdmin()){
+    //   this.router.navigate(['../login']);
+    // }
   }
 
+  logout() {
+    this.currentUserService.logout();
+    console.log("logout");
+    return;
+  }
 }

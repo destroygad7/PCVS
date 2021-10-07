@@ -1,6 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { ActivatedRoute } from '@angular/router';
+import { Batch } from 'src/app/model/batch.model';
+import { VaccineService } from 'src/app/service/vaccine.service';
+import { VaccinationService } from 'src/app/service/vaccination.service';
+import { CurrentUserService } from 'src/app/service/currentuser.service';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   enteredNumber: String;
@@ -15,14 +21,27 @@ export interface DialogData {
 })
 export class AdminBatchInfoComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,) { }
+  constructor(private router:Router,private route: ActivatedRoute, public vaccinationService:VaccinationService,
+    public currentUserService:CurrentUserService, public vaccineService:VaccineService,
+    public dialog: MatDialog) { }
 
   selecteddate: "" | undefined;
   enteredQuantity=0;
   enteredNumber="";
+  batchID:String="";
+  vacName:String="";
+  batches:Batch[] = [];
+  private sub: any;
 
   ngOnInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      this.vacName = params['vacname'];
+    });
+    // this.batches = this.vaccineService.getBatches(this.vacName,"this.currentUserService.getCentreID()");
+    this.batches = this.vaccineService.getBatches(this.vacName,"1");
+
   }
+
   openAddBatchDialog(): void {
     const dialogRef = this.dialog.open(AddBatchDialogueComponent, {
       width: '250px',
@@ -34,8 +53,22 @@ export class AdminBatchInfoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.selecteddate = result;
-      console.log(this.selecteddate);
+      if (result!=undefined){
+        this.enteredNumber = result.enteredNumber;
+        this.enteredQuantity = result.enteredQuantity;
+        this.selecteddate = result.selecteddate;
+        if (this.selecteddate!=undefined){
+          let date = new Date(this.selecteddate);
+          console.log(this.enteredNumber,this.enteredQuantity,this.selecteddate);
+          this.vaccineService.addBatches(this.vacName, Math.floor(Math.random()*999999).toString( ),
+            this.enteredNumber,date,this.enteredQuantity,
+            "1");
+          console.log("added new batch");
+          // this.batches = this.vaccineService.getBatches(this.vacName,"this.currentUserService.getCentreID()");
+          this.batches = this.vaccineService.getBatches(this.vacName,"1");
+          return;
+        }
+      }
     });
   }
 }

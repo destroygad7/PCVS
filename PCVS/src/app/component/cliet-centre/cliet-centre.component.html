@@ -12,28 +12,27 @@
   </p>
 </div>
 
-<!--all vaccine types-->
-<mat-card class="center-card" multi= "true">
+<mat-card class="center-card" multi= "true" *ngFor="let centre of vacCentres">
   <mat-grid-list cols="5" rowHeight="40px">
     <mat-grid-tile colspan="5"><div class="vac-tiles" style="font-size: 16px;">
-      <b>CentreName</b>
+      <b>{{centre.centreName}}</b>
     </div></mat-grid-tile>
-    <mat-grid-tile colspan="5"><div class="vac-tiles"><mat-icon>location_on</mat-icon>ADDRESS</div></mat-grid-tile>
+    <mat-grid-tile colspan="5"><div class="vac-tiles"><mat-icon>location_on</mat-icon>{{centre.centreAddress}}</div></mat-grid-tile>
     <mat-grid-tile colspan="2"><div class="vac-tiles"><mat-icon>location_city</mat-icon>
-      STATE
+      {{centre.centreState}}
     </div></mat-grid-tile>
     <mat-grid-tile colspan="3"><div class="vac-tiles"><mat-icon> my_location</mat-icon>
-      POSTCODE
+      {{centre.centrePos}}
     </div></mat-grid-tile>
 
   </mat-grid-list>
   <mat-toolbar-row class="action-bar">
     <span class="spacer"></span>
-    <button mat-stroked-button color='accent' routerLink="1"
+    <button mat-stroked-button color='accent' routerLink='{{centre.centreID}}'
     style="display: block;margin-left: auto;margin-right: 0px;">
-    Manage Batches</button>
+    Select centre</button>
   </mat-toolbar-row >
 </mat-card>
 
 
-<p style="text-align: center;">There are no vaccines.</p>
+<p *ngIf="vacCentres.length<1" style="text-align: center;">There are no vaccines.</p>

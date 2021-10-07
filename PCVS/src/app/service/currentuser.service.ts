@@ -26,6 +26,10 @@ export class CurrentUserService {
     };
   }
 
+  getUser() {
+    return this.user;
+  }
+
   getUsername() {
     return this.user.username
   }

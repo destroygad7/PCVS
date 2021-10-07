@@ -1,3 +1,5 @@
+import { Centre } from "./centre.model";
+
 export interface Batch{
   batchID: String;
   batchNumber: String;
@@ -5,6 +7,5 @@ export interface Batch{
   quantity: number;
   pending: number;
   administered: number;
-  centreID: String;
-  staffID: String;
+  centre: Centre;
 }

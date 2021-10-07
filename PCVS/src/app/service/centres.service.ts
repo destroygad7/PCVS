@@ -6,7 +6,13 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CentresService {
-  private centres: Centre[] = []; //set type to post array(model) and assign to empty array
+  private centres: Centre[] = [{
+    centreID: "1",
+        centreName: "aname",
+        centreAddress: "address",
+        centrePos: 12345,
+        centreState: "stateeee"
+  }]; //set type to post array(model) and assign to empty array
   private centresUpdated = new Subject<Centre[]>();
 
   getCentres(){

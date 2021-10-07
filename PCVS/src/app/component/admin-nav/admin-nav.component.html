@@ -7,7 +7,7 @@
     <a mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">settings</mat-icon>Languages & Settings</div></a>
     <hr>
     <a mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">bug_report</mat-icon>Bugs & Feedbacks</div></a>
-    <a routerLink="/login" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">launch</mat-icon>Logout</div></a>
+    <a routerLink="/login" (click)="logout()" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">launch</mat-icon>Logout</div></a>
   </mat-drawer>
 
   <div class="sidenav-content">

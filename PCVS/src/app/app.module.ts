@@ -24,6 +24,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table'
 import { AddBatchDialogueComponent } from './component/admin-batch-info/admin-batch-info.component';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -39,22 +40,28 @@ import { AdminBatchComponent } from './component/admin-batch/admin-batch.compone
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAppointmentComponent} from './component/admin-appointment/admin-appointment.component';
 import { AdminBatchInfoComponent } from './component/admin-batch-info/admin-batch-info.component';
-import { AppointDialogComponent } from './component/admin-appointment/admin-appointment.component';
-import { ViewPatientDialogComponent } from './component/admin-appointment/admin-appointment.component';
+// import { ViewPatientDialogComponent } from './component/admin-appointment/admin-appointment.component';
 import { RegSuccessDialog } from './component/login/login.component';
 import { ClietCentreComponent } from './component/cliet-centre/cliet-centre.component';
 import { ClientBatchInfoComponent } from './component/client-batch-info/client-batch-info.component';
+import { ClientAppointDialogComponent } from './component/client-batch-info/client-batch-info.component';
+import { ClientSuccessSnackBarComponent } from './component/client-batch-info/client-batch-info.component';
+import { AdminApprovedSnackBarComponent } from './component/admin-appointment/admin-appointment.component';
+import { InvalidLoginSnackbarComponent } from './component/login/login.component';
+import { ErrorComponent } from './component/error/error.component';
 
 const appRoutes: Routes = [
   {path:'login',component:LoginComponent},
-  //{path: '',redirectTo: '/login', pathMatch: 'full' },
+  {path:'login/:vacname/:centreID',component:LoginComponent},
+  {path: '',redirectTo: 'patient/home', pathMatch: 'full' },
   {path: 'admin',redirectTo: 'admin/home', pathMatch: 'full' },
   {path:'admin',component:AdminNavComponent,
     children:[
       {path:'home',component:AdminHomeComponent},
       {path:'vaccine',component:AdminBatchComponent},
-      {path:'vaccine/batches',component:AdminBatchInfoComponent},
-      {path:'appointment',component:AdminAppointmentComponent}
+      {path:'vaccine/:vacname/batches',component:AdminBatchInfoComponent},
+      {path:'appointment',component:AdminAppointmentComponent},
+      {path:'appointment/:vacname/:batchID',component:AdminAppointmentComponent}
     ]
   },
   {path:'patient',redirectTo: 'patient/home', pathMatch: 'full' },
@@ -62,9 +69,11 @@ const appRoutes: Routes = [
     children:[
       {path:'home',component:ClientHomeComponent},
       {path:'vaccines',component:ClientVaccineComponent},
-      {path:'vaccines/centres/:id',component:ClietCentreComponent},
-      {path:'vaccines/centres/:id/:id',component:ClientBatchInfoComponent}
+      {path:'vaccines/centres/:vacname',component:ClietCentreComponent},
+      {path:'vaccines/centres/:vacname/:centreID',component:ClientBatchInfoComponent}
     ]},
+  // {path:'error',component:ErrorComponent},
+  // {path:'**',redirectTo: 'error', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -72,6 +81,7 @@ const appRoutes: Routes = [
     AppComponent,
     HeaderComponent,
     LoginComponent,
+    HeaderComponent,
     ClientNavComponent,
     ClientHomeComponent,
     ClientVaccineComponent,
@@ -80,14 +90,19 @@ const appRoutes: Routes = [
     AdminBatchComponent,
     AdminAppointmentComponent,
     AdminBatchInfoComponent,
-    AppointDialogComponent,
-    ViewPatientDialogComponent,
+    // ViewPatientDialogComponent,
     RegSuccessDialog,
     AddBatchDialogueComponent,
     ClietCentreComponent,
-    ClientBatchInfoComponent
+    ClientBatchInfoComponent,
+    ClientAppointDialogComponent,
+    ClientSuccessSnackBarComponent,
+    AdminApprovedSnackBarComponent,
+    InvalidLoginSnackbarComponent,
+    ErrorComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     MatCardModule,
