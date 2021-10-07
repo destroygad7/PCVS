@@ -1,11 +1,40 @@
 <h1><b>Home</b></h1><hr>
 <mat-grid-list cols="3" rowHeight="300px" [gutterSize]="'7px'">
-  <mat-grid-tile colspan="3">1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile colspan="2">3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
-  <mat-grid-tile>5</mat-grid-tile>
-  <mat-grid-tile rowspan="2">6</mat-grid-tile>
-  <mat-grid-tile colspan="2">7</mat-grid-tile>
+  <mat-grid-tile colspan="3">
+    <mat-card class="backgroundcard" routerLink="../../login">
+    <mat-card-header class="cardcontent">Sign Up Now!</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/5046947.png"></mat-card-content>
+    <mat-card-actions class="cardcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </mat-card-actions>
+  </mat-card></mat-grid-tile>
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../vaccines">
+    <mat-card-header class="cardcontent">Request Vaccination Appointment</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4497790.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+  <mat-grid-tile colspan="2"><mat-card class="backgroundcard" routerLink="">
+    <mat-card-header class="cardcontent">View Vaccines</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4497919.png"></mat-card-content>
+    <mat-card-actions class="cardcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </mat-card-actions>
+  </mat-card></mat-grid-tile>
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="">
+    <mat-card-header class="cardcontent">Persona Data&Privacy</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/5046950.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="">
+    <mat-card-header class="cardcontent">Finances&Insurances</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/5547565.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+  <mat-grid-tile rowspan="2"><mat-card class="backgroundcard" routerLink="">
+    <mat-card-header class="cardcontent">About Us</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4497758.png"></mat-card-content>
+    <mat-card-actions class="cardcontent">The Covid-19 vaccination rollout in Malaysia and most countries have been underway for a few months. As more and more of the population have been vaccinated, private healthcare centres have been allowed to purchase and administer vaccines, especially to patients who want to choose the type of vaccine that they receive.</mat-card-actions>
+  </mat-card></mat-grid-tile>
+  <mat-grid-tile colspan="2"><mat-card class="backgroundcard" routerLink="">
+    <mat-card-header class="cardcontent">Others</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4860826.png"></mat-card-content>
+    <mat-card-actions class="cardcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut  </mat-card-actions>
+  </mat-card></mat-grid-tile>
 </mat-grid-list>
 

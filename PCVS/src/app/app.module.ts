@@ -72,8 +72,8 @@ const appRoutes: Routes = [
       {path:'vaccines/centres/:vacname',component:ClietCentreComponent},
       {path:'vaccines/centres/:vacname/:centreID',component:ClientBatchInfoComponent}
     ]},
-  // {path:'error',component:ErrorComponent},
-  // {path:'**',redirectTo: 'error', pathMatch: 'full' },
+  {path:'error',component:ErrorComponent},
+  {path:'**',redirectTo: 'error', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,11 +1,45 @@
 <h1><b>Home</b></h1><hr>
-<mat-grid-list cols="2" rowHeight="3:2">
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
+<mat-grid-list cols="2" rowHeight="3:2" [gutterSize]="'20px'">
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../vaccine">
+    <mat-card-header class="cardcontent">Manage Vaccines</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4497919.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../appointment">
+    <mat-card-header class="cardcontent">Vaccine Appointments</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4497879.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../home">
+    <mat-card-header class="cardcontent">Profile Settings</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4825044.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../home">
+    <mat-card-header class="cardcontent">Privacy&Security</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/5046950.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../home">
+    <mat-card-header class="cardcontent">Doctor&Volunteers</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4497758.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../home">
+    <mat-card-header class="cardcontent">aaaaaaaa</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4860826.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+
+  <mat-grid-tile><mat-card class="backgroundcard" routerLink="../home">
+    <mat-card-header class="cardcontent">Healthcare Statistics</mat-card-header>
+    <mat-card-content class="cardcontent"><img src="assets/img/4481177.png"></mat-card-content>
+    <mat-card-actions class="cardcontent"></mat-card-actions>
+  </mat-card></mat-grid-tile>
+
 </mat-grid-list>
