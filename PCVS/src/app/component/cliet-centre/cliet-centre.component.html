@@ -12,7 +12,7 @@
   </p>
 </div>
 
-<mat-card class="center-card" multi= "true" *ngFor="let centre of vacCentres">
+<mat-card class="center-card" multi= "true" *ngFor="let centre of vacCentres" matRipple [matRippleColor]="'#fcc2c2'">
   <mat-grid-list cols="5" rowHeight="40px">
     <mat-grid-tile colspan="5"><div class="vac-tiles" style="font-size: 16px;">
       <b>{{centre.centreName}}</b>

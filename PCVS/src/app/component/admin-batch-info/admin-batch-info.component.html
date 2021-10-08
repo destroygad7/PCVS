@@ -20,7 +20,7 @@
 
 
 <!--all vaccine types-->
-<mat-card class="center-card" multi= "true" *ngFor="let batch of batches">
+<mat-card class="center-card" multi= "true" *ngFor="let batch of batches" matRipple [matRippleColor]="'#8ca9ca'">
   <mat-grid-list cols="6" rowHeight="40px">
     <mat-grid-tile colspan="6"><div class="vac-tiles" style="font-size: 20px;">
       <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon>{{batch.batchNumber}}</b>

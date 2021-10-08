@@ -25,6 +25,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table'
 import { AddBatchDialogueComponent } from './component/admin-batch-info/admin-batch-info.component';
 import { CommonModule } from '@angular/common';
+import {MatRippleModule} from '@angular/material/core';
+
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -127,6 +129,7 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     MatSnackBarModule,
     MatTableModule,
+    MatRippleModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCSQMLteimv75SIbD39HpsDUxrgW6gZ2nY'}),
     RouterModule.forRoot(

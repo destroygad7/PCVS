@@ -2,7 +2,7 @@
 .backgroundcard {
   width: 100%;
   height: 100%;
-  background-color: rgb(253, 253, 253);
+  background-color: rgb(254,254,254);
 }
 
 .cardcontent {
@@ -20,6 +20,6 @@ mat-card-header {
 }
 
 img {
-  max-width:180px;
+  max-width:300px;
 }
 
