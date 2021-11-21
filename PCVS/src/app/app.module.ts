@@ -51,6 +51,7 @@ import { ClientSuccessSnackBarComponent } from './component/client-batch-info/cl
 import { AdminApprovedSnackBarComponent } from './component/admin-appointment/admin-appointment.component';
 import { InvalidLoginSnackbarComponent } from './component/login/login.component';
 import { ErrorComponent } from './component/error/error.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path:'login',component:LoginComponent},
@@ -130,6 +131,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatTableModule,
     MatRippleModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCSQMLteimv75SIbD39HpsDUxrgW6gZ2nY'}),
     RouterModule.forRoot(

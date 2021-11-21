@@ -16,18 +16,14 @@ export class ClientVaccineComponent implements OnInit {
   constructor(public vaccineService:VaccineService) { }
 
   ngOnInit(): void {
-    this.vaccines = this.vaccineService.getVaccines();
-     this.vaccineSub = this.vaccineService.getVaccineUpdateListener()
-     .subscribe((vaccines:Vaccine[]) => {
-       this.vaccines=vaccines;
-     });
+    this.vaccines=this.vaccineService.getVaccines();
   }
   ngOnDestroy(){
     this.vaccineSub?.unsubscribe();
   }
 
   getTotalBatches(vaccine:Vaccine) {
-    return this.vaccineService.getTotalBatches(vaccine);
+    return this.vaccineService.getAllTotalBatches(vaccine);
   }
 
   getTotalAvailable(vaccine:Vaccine) {

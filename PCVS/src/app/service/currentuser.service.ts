@@ -79,7 +79,7 @@ export class CurrentUserService {
   }
 
   login(email:String,password:String){
-    let user = this.userservice.getUserByEmail(email)
+    let user = this.userservice.getUserByEmail(email);
     if (user!=undefined){
       if (this.checkPassword(password,user)){
         this.user = user;

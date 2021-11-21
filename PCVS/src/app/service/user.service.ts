@@ -1,45 +1,24 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private users:User [] = [
-    {
-      userID: "1",
-      username: "1",
-      email: "a@aa.aa",
-      password: "111111",
-      name: "1myname",
-      acctype: "patient",
-      centreID: "",
-      staffID: "",
-      ID: "123123123",
-      IDtype: "Type",
-      phone: 11111111,
-      first: true
-    },
-    {
-      userID: "1",
-      username: "1",
-      email: "z@zz.zz",
-      password: "111111",
-      name: "1myname",
-      acctype: "admin",
-      centreID: "1",
-      staffID: "1",
-      ID: "",
-      IDtype: "",
-      phone: 0,
-      first: false
-    }
-  ];
+  private users:User [] = [];
   private usersUpdated = new Subject<User[]>();
 
+  constructor(private http: HttpClient){}
+
   getUsers(){
-    return this.users;
+    // return this.users;
+    this.http.get<{message: string, users: User[]}>('http://localhost:3000/api/users')
+    .subscribe((userData)=>{
+      this.users = userData.users;
+      this.usersUpdated.next([...this.users]);
+    })
   }
 
   getUserByEmail(email:String){
@@ -74,8 +53,12 @@ export class UserService {
       first: false,
       acctype: "admin"
     }
-    this.users.push(user);
-    this.usersUpdated.next([...this.users]);
+    this.http.post<{message:string}>('http://localhost:3000/api/users',user)
+    .subscribe((responseData) => {
+      console.log(responseData.message);
+      this.users.push(user);
+      this.usersUpdated.next([...this.users]);
+    });
   }
 
   addPatient(userID: String,username: String,email: String,
@@ -95,8 +78,20 @@ export class UserService {
       first: first,
       acctype: "patient"
       }
-      this.users.push(user);
-      this.usersUpdated.next([...this.users]);
+      this.http.post<{message:string}>('http://localhost:3000/api/users',user)
+      .subscribe((responseData) => {
+        console.log(responseData.message);
+        this.users.push(user);
+        this.usersUpdated.next([...this.users]);
+       });
+  }
+
+  getUserByID(userID:String){
+    let found=this.users.find(i=>i.userID === userID);
+    if (typeof(found)!="undefined"){
+      return found;
+    }
+    return;
   }
 
   getUserUpdateListener()

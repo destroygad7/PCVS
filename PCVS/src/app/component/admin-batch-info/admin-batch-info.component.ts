@@ -7,6 +7,10 @@ import { VaccineService } from 'src/app/service/vaccine.service';
 import { VaccinationService } from 'src/app/service/vaccination.service';
 import { CurrentUserService } from 'src/app/service/currentuser.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Vaccine } from 'src/app/service/vaccine.service';
+import * as moment from 'moment';
+
 
 export interface DialogData {
   enteredNumber: String;
@@ -23,23 +27,38 @@ export class AdminBatchInfoComponent implements OnInit {
 
   constructor(private router:Router,private route: ActivatedRoute, public vaccinationService:VaccinationService,
     public currentUserService:CurrentUserService, public vaccineService:VaccineService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {}
 
   selecteddate: "" | undefined;
   enteredQuantity=0;
   enteredNumber="";
   batchID:String="";
   vacName:String="";
+  batches_:Batch[] = [];
   batches:Batch[] = [];
+  vaccines:Vaccine[] = [];
+  private batchSub:Subscription | undefined;
   private sub: any;
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.vacName = params['vacname'];
     });
-    // this.batches = this.vaccineService.getBatches(this.vacName,"this.currentUserService.getCentreID()");
-    this.batches = this.vaccineService.getBatches(this.vacName,"1");
+    console.log(this.currentUserService.getCentreID());
+    this.vaccines = this.vaccineService.getVaccines();
+    this.vaccineService.getAllBatches();
+    this.batchSub = this.vaccineService.getVaccineUpdateListener()
+     .subscribe((batches:Batch[]) => {
+       this.batches_=batches;
+     });
+    this.batches = this.vaccineService.getBatches(this.vacName,this.currentUserService.getCentreID());
+  }
+  ngOnDestroy(): void {
+    this.batchSub?.unsubscribe;
+  }
 
+  displayDate(date:Date){
+    return moment(date).format('DD/MM/YYYY');
   }
 
   openAddBatchDialog(): void {
@@ -62,10 +81,8 @@ export class AdminBatchInfoComponent implements OnInit {
           console.log(this.enteredNumber,this.enteredQuantity,this.selecteddate);
           this.vaccineService.addBatches(this.vacName, Math.floor(Math.random()*999999).toString( ),
             this.enteredNumber,date,this.enteredQuantity,
-            "1");
-          console.log("added new batch");
-          // this.batches = this.vaccineService.getBatches(this.vacName,"this.currentUserService.getCentreID()");
-          this.batches = this.vaccineService.getBatches(this.vacName,"1");
+            this.currentUserService.getCentreID(), this.vacName);
+          this.router.navigate(['admin/vaccine',this.vacName,'batches'])
           return;
         }
       }

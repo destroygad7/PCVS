@@ -23,7 +23,7 @@
     <mat-grid-tile colspan="6"><div class="vac-tiles" style="font-size: 20px;">
       <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon>{{batch.batchNumber}}</b>
     </div></mat-grid-tile>
-    <mat-grid-tile colspan="3"><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{batch.expiry.toLocaleDateString("en-US")}}</div></mat-grid-tile>
+    <mat-grid-tile colspan="3"><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{displayDate(batch.expiry)}}</div></mat-grid-tile>
     <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
       Available: {{batch.quantity-batch.pending-batch.administered}}
     </div></mat-grid-tile>

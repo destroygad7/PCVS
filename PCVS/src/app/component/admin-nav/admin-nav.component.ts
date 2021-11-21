@@ -18,6 +18,10 @@ export class AdminNavComponent implements OnInit {
     // }
   }
 
+  isLogin() {
+    return this.currentUserService.getLoginStatus();
+  }
+
   logout() {
     this.currentUserService.logout();
     console.log("logout");

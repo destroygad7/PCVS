@@ -27,22 +27,22 @@
           <mat-grid-tile><div class="vac-tiles" style="text-align: right;display:block;">Requested Date: </div></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles"><mat-icon>calendar_today</mat-icon>{{vac.Appointdate | date:'MM/dd/yyyy'}}</div></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles" style="text-align: right;display:block;">Batch Info:</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>{{vac.batch.batchID}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{vac.batch.expiry | date:'MM/dd/yyyy' }}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>{{getVaccineNamebyBatchID(vac.batch.batchID)}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>{{getManufacturerbyBatchID(vac.batch.batchID)}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>{{getBatch(vac.batch)?.batchID}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{getBatch(vac.batch)?.expiry | date:'MM/dd/yyyy' }}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>{{getBatch(vac.batch)?.vaccine}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>{{getBatchManufacturer(vac.batch)}}</div></mat-grid-tile>
           <mat-grid-tile></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
-            {{vac.batch.quantity-vac.batch.pending-vac.batch.administered}}
+            {{countAvailable(vac.batch)}}
           </div></mat-grid-tile>
           <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>hourglass_empty</mat-icon>
-            {{vac.batch.pending}}
+            {{getBatch(vac.batch)?.pending}}
           </div></mat-grid-tile>
           <mat-grid-tile colspan="2"></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles" style="text-align: right;display:block;">Patient Info:</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>account_box</mat-icon>{{vac.user.name}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>assignment_ind</mat-icon>{{vac.user.ID}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon> call</mat-icon>{{vac.user.phone}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>account_box</mat-icon>{{getUser(vac.user)?.name}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>assignment_ind</mat-icon>{{getUser(vac.user)?.ID}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon> call</mat-icon>{{getUser(vac.user)?.phone}}</div></mat-grid-tile>
 
         </mat-grid-list>
         <mat-toolbar class="toolbars">
@@ -86,22 +86,22 @@
             <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon>{{vac.vaccinationID}}</b>
           </div></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles" style="text-align: right;display:block;">Batch Info:</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>{{vac.batch.batchID}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{vac.batch.expiry | date:'MM/dd/yyyy' }}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>{{getVaccineNamebyBatchID(vac.batch.batchID)}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>{{getManufacturerbyBatchID(vac.batch.batchID)}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>{{getBatch(vac.batch)?.batchID}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{getBatch(vac.batch)?.expiry | date:'MM/dd/yyyy' }}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>{{getBatch(vac.batch)?.vaccine}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>{{getBatchManufacturer(vac.batch)}}</div></mat-grid-tile>
           <mat-grid-tile></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
-            {{vac.batch.quantity-vac.batch.pending-vac.batch.administered}}
+            {{countAvailable(vac.batch)}}
           </div></mat-grid-tile>
           <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>hourglass_empty</mat-icon>
-            {{vac.batch.pending}}
+            {{getBatch(vac.batch)?.pending}}
           </div></mat-grid-tile>
           <mat-grid-tile colspan="2"></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles" style="text-align: right;display:block;">Patient Info:</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>account_box</mat-icon>{{vac.user.name}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>assignment_ind</mat-icon>{{vac.user.ID}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon> call</mat-icon>{{vac.user.phone}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>account_box</mat-icon>{{getUser(vac.user)?.name}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>assignment_ind</mat-icon>{{getUser(vac.user)?.ID}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon> call</mat-icon>{{getUser(vac.user)?.phone}}</div></mat-grid-tile>
 
         </mat-grid-list>
         <mat-toolbar class="toolbars">
@@ -144,22 +144,22 @@
             <b><mat-icon style="font-size: 17px;padding-right: 0px;"> vpn_key</mat-icon>{{vac.vaccinationID}}</b>
           </div></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles" style="text-align: right;display:block;">Batch Info:</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>{{vac.batch.batchID}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{vac.batch.expiry | date:'MM/dd/yyyy' }}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>{{getVaccineNamebyBatchID(vac.batch.batchID)}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>{{getManufacturerbyBatchID(vac.batch.batchID)}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>vpn_key</mat-icon>{{getBatch(vac.batch)?.batchID}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>date_range</mat-icon>{{getBatch(vac.batch)?.expiry | date:'MM/dd/yyyy' }}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>info</mat-icon>{{getBatch(vac.batch)?.vaccine}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>store</mat-icon>{{getBatchManufacturer(vac.batch)}}</div></mat-grid-tile>
           <mat-grid-tile></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
-            {{vac.batch.quantity-vac.batch.pending-vac.batch.administered}}
+            {{countAvailable(vac.batch)}}
           </div></mat-grid-tile>
           <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>hourglass_empty</mat-icon>
-            {{vac.batch.pending}}
+            {{getBatch(vac.batch)?.pending}}
           </div></mat-grid-tile>
           <mat-grid-tile colspan="2"></mat-grid-tile>
           <mat-grid-tile><div class="vac-tiles" style="text-align: right;display:block;">Patient Info:</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>account_box</mat-icon>{{vac.user.name}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon>assignment_ind</mat-icon>{{vac.user.ID}}</div></mat-grid-tile>
-          <mat-grid-tile><div class="vac-tiles"><mat-icon> call</mat-icon>{{vac.user.phone}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>account_box</mat-icon>{{getUser(vac.user)?.name}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon>assignment_ind</mat-icon>{{getUser(vac.user)?.ID}}</div></mat-grid-tile>
+          <mat-grid-tile><div class="vac-tiles"><mat-icon> call</mat-icon>{{getUser(vac.user)?.phone}}</div></mat-grid-tile>
         </mat-grid-list>
       </mat-card>
       </ng-container>

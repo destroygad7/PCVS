@@ -6,7 +6,7 @@
     <a *ngIf="isLogin()" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">settings</mat-icon>Languages & Settings</div></a>
     <hr>
     <a mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">bug_report</mat-icon>Bugs & Feedbacks</div></a>
-    <a (click)="logout()" routerLink="" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">launch</mat-icon>Logout</div></a>
+    <a (click)="logout()" *ngIf="isLogin()" routerLink="" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">launch</mat-icon>Logout</div></a>
   </mat-drawer>
 
   <div class="sidenav-content">

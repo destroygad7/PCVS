@@ -12,7 +12,7 @@
   </p>
 </div>
 
-<mat-card class="center-card" multi= "true" *ngFor="let centre of vacCentres" matRipple [matRippleColor]="'#fcc2c2'">
+<mat-card class="center-card" multi= "true" *ngFor="let centre of centres" matRipple [matRippleColor]="'#fcc2c2'">
   <mat-grid-list cols="5" rowHeight="40px">
     <mat-grid-tile colspan="5"><div class="vac-tiles" style="font-size: 16px;">
       <b>{{centre.centreName}}</b>
@@ -35,4 +35,4 @@
 </mat-card>
 
 
-<p *ngIf="vacCentres.length<1" style="text-align: center;">There are no vaccines.</p>
+<p *ngIf="centres.length<1" style="text-align: center;">There are no healthcare centre providing this vaccine.</p>

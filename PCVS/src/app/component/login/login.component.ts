@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,10 @@ import { ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   centres:Centre[] = [];
+  users:User[] =[];
   private centreSub:Subscription | undefined;
   private sub: any;
+  private userSub:Subscription | undefined;
 
   durationInMiliSeconds = 3000;
   inputEmail='';
@@ -59,20 +62,23 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.centres = this.centresService.getCentres();
+    this.userService.getUsers();
+    this.userSub = this.userService.getUserUpdateListener()
+     .subscribe((users:User[]) => {
+       this.users=users;
+     });
+    this.centresService.getCentres();
      this.centreSub = this.centresService.getCentreUpdateListener()
      .subscribe((centres:Centre[]) => {
        this.centres=centres;
      });
-
      this.sub = this.route.params.subscribe(params => {
          this.centreID = params['centreID'];
          this.vacName = params['vacname'];
       })
-      console.log(this.centreID);
-      console.log(this.vacName);
   }
   ngOnDestroy(){
+    this.userSub?.unsubscribe();
     this.centreSub?.unsubscribe();
   }
   openSnackBar() {
@@ -106,13 +112,6 @@ export class LoginComponent implements OnInit {
       this.inputIC=form.value.ICno;
     if (form.value.Passport!='')
       this.inputIC=form.value.Passport;
-    // console.log(this.inputEmail);
-    // console.log(this.inputUser);
-    // console.log(this.inputName);
-    // console.log(this.inputPassword);
-    // console.log(this.inputPhone);
-    // console.log(this.inputIC);
-    // console.log(this.inputICType);
     this.setProgress(90);
     console.log("go to 3rd page")
     this.page=3;
@@ -139,6 +138,7 @@ export class LoginComponent implements OnInit {
     this.centresService.addCentre(id, form.value.centreName,
     form.value.centreAddress,form.value.postcode, form.value.centreState)
     this.inputCentreID=id;
+    console.log(this.inputCentreID);
     this.page=5;
   }
 
@@ -226,6 +226,7 @@ export class LoginComponent implements OnInit {
     console.log(this.inputName);
     console.log(this.inputPassword);
     console.log(this.inputStaffID);
+    console.log(this.inputCentreID);
 
     this.userService.addAdmin(Math.floor(Math.random()*999999).toString( )
     ,this.inputUser,this.inputEmail,this.inputPassword, this.inputName,

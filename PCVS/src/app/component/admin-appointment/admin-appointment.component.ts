@@ -6,6 +6,8 @@ import { VaccinationService } from 'src/app/service/vaccination.service';
 import { CurrentUserService } from 'src/app/service/currentuser.service';
 import { Vaccination } from 'src/app/model/vaccination.model';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-admin-appointment',
@@ -19,17 +21,47 @@ export class AdminAppointmentComponent implements OnInit {
   batchID:String="";
   vacName:String="";
   vaccinations:Vaccination[] = [];
+  vaccinations_:Vaccination[] = [];
+  private vaccinationSub:Subscription | undefined;
   private sub: any;
 
   constructor(private route: ActivatedRoute, public vaccinationService:VaccinationService,
-    public currentUserService:CurrentUserService, public vaccineService:VaccineService,public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+    public currentUserService:CurrentUserService, public vaccineService:VaccineService,public userService:UserService,
+    public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.batchID = params['batchID'];
       this.vacName = params['vacname'];
     });
-    this.vaccinations = this.vaccinationService.getVaccinations();
+    this.vaccinationService.getVaccinations();
+    this.vaccinationSub=this.vaccinationService.getVaccinationUpdateListener()
+      .subscribe((vaccinations: Vaccination[])=>{
+        this.vaccinations_=vaccinations;
+      });
+    this.vaccinations = this.vaccinationService.getVaccinationsByCentre(this.currentUserService.getCentreID());
+  }
+  ngOnDestroy(): void {
+    this.vaccinationSub?.unsubscribe();
+  }
+
+  getBatch(batchID: String){
+    return this.vaccineService.getBatchbyID(batchID);
+  }
+
+  getBatchManufacturer(batchID: String){
+    return this.vaccineService.getManufacturerbyBatchID(batchID);
+  }
+
+  getUser(userID:String){
+    return this.userService.getUserByID(userID);
+  }
+
+  countAvailable(batchID: String){
+    let i=this.getBatch(batchID)?.quantity ?? 0;
+    let j= this.getBatch(batchID)?.pending ??0;
+    let k= this.getBatch(batchID)?.administered??0
+    return i-j-k;
   }
 
   openCompleteSnackBar() {
@@ -50,7 +82,6 @@ export class AdminAppointmentComponent implements OnInit {
       this.vaccinationService.approveVaccination(vac);
       console.log("updated to approved");
       this. openApprovedSnackBar();
-      this.vaccinations = this.vaccinationService.getVaccinations();
     };
   }
 
@@ -60,7 +91,6 @@ export class AdminAppointmentComponent implements OnInit {
       this.vaccinationService.completeVaccination(vac);
       console.log("updated to completed");
       this.openCompleteSnackBar();
-      this.vaccinations = this.vaccinationService.getVaccinations();
     };
   }
 

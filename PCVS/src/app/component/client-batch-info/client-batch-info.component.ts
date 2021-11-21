@@ -8,6 +8,13 @@ import { VaccineService } from 'src/app/service/vaccine.service';
 import { VaccinationService } from 'src/app/service/vaccination.service';
 import { CurrentUserService } from 'src/app/service/currentuser.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Vaccine } from 'src/app/service/vaccine.service';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+import { Centre } from 'src/app/model/centre.model';
+import { CentresService } from 'src/app/service/centres.service';
+
 
 @Component({
   selector: 'app-client-batch-info',
@@ -19,29 +26,52 @@ export class ClientBatchInfoComponent implements OnInit {
   batchID:String="";
   centreID:String="";
   vacName:String="";
+  batches_:Batch[] = [];
   batches:Batch[] = [];
+  vaccines:Vaccine[] = [];
+  private batchesSub:Subscription | undefined;
+  centres:Centre[] = [];
+  private centreSub:Subscription | undefined;
   private sub: any;
   selecteddate: "" | undefined;
   durationInMiliSeconds = 1000;
   constructor(private router:Router,private route: ActivatedRoute, public vaccinationService:VaccinationService,
-   public currentUserService:CurrentUserService, public vaccineService:VaccineService,
+   public currentUserService:CurrentUserService, public vaccineService:VaccineService, public centresService:CentresService,
    public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.vaccines = this.vaccineService.getVaccines();
     this.sub = this.route.params.subscribe(params => {
       this.centreID = params['centreID'];
       this.vacName = params['vacname'];
     });
-    this.batches = this.vaccineService.getBatches(this.vacName,this.centreID);
+    this.vaccineService.getAllBatches();
+    this.batchesSub = this.vaccineService.getVaccineUpdateListener()
+     .subscribe((batches:Batch[]) => {
+       this.batches_=batches;
+     });
+     this.centresService.getCentres();
+     this.centreSub = this.centresService.getCentreUpdateListener()
+     .subscribe((centres:Centre[]) => {
+       this.centres=centres;
+     });
     if (!this.currentUserService.getLoginStatus()){
       this.router.navigate(['../../login',this.vacName,this.centreID])
 
     }
+    this.batches = this.vaccineService.getBatches(this.vacName,this.centreID);
+  }
+  ngOnDestroy(): void {
+    this.batchesSub?.unsubscribe;
+    this.centreSub?.unsubscribe;
+  }
+
+  displayDate(date:Date){
+    return moment(date).format('DD/MM/YYYY');
   }
 
   checkAppointed(batchID:String) {
-    return this.vaccinationService.checkUserAppointed(batchID,this.currentUserService.getUser())||
-    !this.vaccinationService.checkAvailable(batchID);
+    return !(!this.vaccinationService.checkUserAppointed(batchID,this.currentUserService.getUser())&&this.vaccinationService.checkAvailable(batchID));
   }
 
   openAppointDialog( batchID:String
@@ -54,15 +84,16 @@ export class ClientBatchInfoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.selecteddate = result;
+      this.selecteddate = result.selecteddate;
+      let centre = this.centresService.getCentreByID(this.centreID);
       console.log(this.selecteddate);
-      if (this.selecteddate!=undefined){
+      if (this.selecteddate!=undefined&&centre!=undefined){
         let date= new Date(this.selecteddate);
         console.log(date);
         this.vaccinationService.addVaccinations(
           Math.floor(Math.random()*999999).toString( ),
-          this.batchID, this.centreID, this.currentUserService.getUser(),
-          date
+          this.batchID, this.centreID, this.currentUserService.getUserID(),
+          date, centre
         );
         this.openSnackBar();
         console.log("registered appointment");
@@ -116,7 +147,6 @@ export class ClientAppointDialogComponent implements OnInit{
     this.verify = true;
   }
   ngOnInit() {
-    console.log(this.data.selecteddate)
   }
 }
 

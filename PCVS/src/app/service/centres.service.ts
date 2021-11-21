@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Centre } from '../model/centre.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CentresService {
-  private centres: Centre[] = [{
-    centreID: "1",
-        centreName: "aname",
-        centreAddress: "address",
-        centrePos: 12345,
-        centreState: "stateeee"
-  }]; //set type to post array(model) and assign to empty array
+  private centres: Centre[] = [
+  ]; //set type to post array(model) and assign to empty array
   private centresUpdated = new Subject<Centre[]>();
 
+  constructor(private http: HttpClient) {}
+
   getCentres(){
-    return this.centres; //creating new array by copying old array
+    //return this.centres;
+    this.http.get<{message: string, centres: Centre[]}>('http://localhost:3000/api/centres')
+    .subscribe((centreData)=>{
+      this.centres = centreData.centres;
+      this.centresUpdated.next([...this.centres]);
+    })
   }
 
   addCentre(centreID: String, centreName: String, centreAddress: String,
@@ -28,14 +31,22 @@ export class CentresService {
       centrePos: centrePos,
       centreState: centreState,
     }//var storing values
-    this.centres.push(centre);//push the new post into posts array
-    this.centresUpdated.next([...this.centres]);
+
+    this.http.post<{message: string}>('http://localhost:3000/api/centres', centre)
+    .subscribe((responseData)=>{
+      console.log(responseData.message);
+      this.centres.push(centre);
+      this.centresUpdated.next([...this.centres]);
+    })
   }
 
   getCentreByID(centreID: String){
-    let found = this.centres.find(i=>i.centreID === centreID);
-    if (typeof(found) != "undefined")
-    return found;
+    console.log(this.centres);
+    for (let i=0;i<this.centres.length;i++){
+
+      if (this.centres[i].centreID === centreID)
+        return this.centres[i]
+    }
     return;
   }
 
