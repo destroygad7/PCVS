@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema({
 
   ID: {type: String, required: false},
   IDtype: {type: String, required: false},
+  IDno: {type: String, required: false},
   phone: {type: Number, required: false},
   first: {type: String, required: false}
 });

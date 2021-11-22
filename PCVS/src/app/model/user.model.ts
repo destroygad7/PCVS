@@ -11,6 +11,7 @@ export interface User{
   staffID: String;
 
   ID: String;
+  IDno: String;
   IDtype: String;
   phone: number;
   first: boolean; //vaccinated?

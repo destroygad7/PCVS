@@ -338,20 +338,19 @@ style="margin-top: 10em;">
     <p>
         Make sure to keep your password private.
         Never share it to anyone.
-        <a href="">Try another Email</a>.
+        <a onclick="this.ngOnInit()">Try another Email</a>.
     </p>
 
     <br>
     <form (submit)="login(LoginForm)" #LoginForm="ngForm">
       <mat-form-field appearance="fill" class="login-card-full-width" (focusout)="setProgress(45)">
         <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" name="password" #password="ngModel" ngModel required minlength="6">
+        <input matInput [type]="hide ? 'password' : 'text'" name="password" #password="ngModel" ngModel required>
         <mat-hint> </mat-hint>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error *ngIf="password.errors?.required">Password is <strong>required</strong></mat-error>
-        <mat-error *ngIf="password.hasError('minlength')">Your password should be <strong>6 or more</strong> characters!</mat-error>
+        <mat-error *ngIf="password.errors?.required">Password is required. Are you sure the password inserted is correct?</mat-error>
       </mat-form-field>
       <button type="submit" mat-raised-button class="login-button" color="accent"
       [disabled]="!LoginForm.valid">

@@ -10,7 +10,6 @@ import { CurrentUserService } from 'src/app/service/currentuser.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Vaccine } from 'src/app/service/vaccine.service';
-import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Centre } from 'src/app/model/centre.model';
 import { CentresService } from 'src/app/service/centres.service';

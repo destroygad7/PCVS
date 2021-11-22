@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { AuthService } from 'backend/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class CurrentUserService {
   private token: string ="";
   private authStatusListener = new Subject<boolean>();
 
-  constructor(public userservice:UserService,private http:HttpClient,private authService:AuthService){
+  constructor(public userservice:UserService,private http:HttpClient,private authService:AuthService,private router:Router){
     this.user ={
       id:"",
       userID:'',
@@ -26,6 +27,7 @@ export class CurrentUserService {
       centreID:"",
       staffID:"",
       ID:"",
+      IDno: "",
       IDtype:"",
       phone:0,
       first:false,
@@ -73,7 +75,7 @@ export class CurrentUserService {
   }
 
   getID(){
-    return this.user.ID
+    return this.user.IDno
   }
 
   getIDType(){
@@ -102,6 +104,7 @@ export class CurrentUserService {
       centreID:"",
       staffID:"",
       ID:"",
+      IDno: "",
       IDtype:"",
       phone:0,
       first:false,
@@ -110,12 +113,21 @@ export class CurrentUserService {
       .subscribe(response => {
         const token = response.token;
         this.token = token;
-        this.user = response.user;
         this.authService.setToken(token);
         this.authStatusListener.next(true);
+        this.loginstatus=true;
+        this.user = response.user;
+        if (!this.isAdmin()){
+            this.router.navigate(['/patient/home']);
+            return;
+          }
+        else if (this.isAdmin()){
+          this.router.navigate(['/admin/home']);
+          return;
+        }
       });
 
-    this.loginstatus=true;
+
   }
 
   logout(){
@@ -130,6 +142,7 @@ export class CurrentUserService {
       centreID:"",
       staffID:"",
       ID:"",
+      IDno: "",
       IDtype:"",
       phone:0,
       first:false,

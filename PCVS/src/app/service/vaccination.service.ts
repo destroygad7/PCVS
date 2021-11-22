@@ -77,7 +77,7 @@ export class VaccinationService {
         return;
       })
       this.vaccinations.push(vac);
-        this.vaccineService.updateBatchPending(batchID);
+      this.vaccineService.updateBatchPending(batchID);
       this.vaccinationUpdated.next([...this.vaccinations]);
       return;
   }
@@ -124,6 +124,7 @@ export class VaccinationService {
   approveVaccination(vaccination:Vaccination){
     vaccination.status = "Approved";
     this.updateVaccination(vaccination);
+    this.vaccinationUpdated.next([...this.vaccinations]);
     return;
   }
 
@@ -131,6 +132,7 @@ export class VaccinationService {
     vaccination.status = "Completed";
     this.updateVaccination(vaccination);
     this.vaccineService.updateBatchAdministered(vaccination.batch);
+    this.vaccinationUpdated.next([...this.vaccinations]);
     return;
   }
 
@@ -141,6 +143,7 @@ export class VaccinationService {
       console.log('Deleted');
     });
     this.vaccineService.updateRejectedPending(vac.batch);
+    this.vaccinationUpdated.next([...this.vaccinations]);
     return;
   }
 

@@ -3,6 +3,7 @@ import { VaccineService } from 'src/app/service/vaccine.service';
 import { Vaccine } from 'src/app/service/vaccine.service';
 import { Subscription } from 'rxjs';
 import { CurrentUserService } from 'src/app/service/currentuser.service';
+import { Batch } from 'src/app/model/batch.model';
 
 @Component({
   selector: 'app-admin-batch',
@@ -11,16 +12,22 @@ import { CurrentUserService } from 'src/app/service/currentuser.service';
 })
 export class AdminBatchComponent implements OnInit {
 
+  batches:Batch[] = [];
   vaccines:Vaccine[] = [];
-  private vaccineSub:Subscription | undefined;
+  private batchSub:Subscription | undefined;
   constructor(public vaccineService:VaccineService,
     public currentUserService:CurrentUserService) { }
 
   ngOnInit(): void {
     this.vaccines = this.vaccineService.getVaccines();
+    this.vaccineService.getAllBatches();
+    this.batchSub = this.vaccineService.getVaccineUpdateListener()
+     .subscribe((batches:Batch[]) => {
+       this.batches=batches;
+     });
   }
   ngOnDestroy(){
-    this.vaccineSub?.unsubscribe();
+    this.batchSub?.unsubscribe();
   }
 
   getTotalBatches(vaccine:Vaccine) {

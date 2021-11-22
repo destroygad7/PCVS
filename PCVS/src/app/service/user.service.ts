@@ -50,6 +50,7 @@ export class UserService {
       staffID:staffID,
       ID: '',
       IDtype: '',
+      IDno: '',
       phone: 0,
       first: false,
       acctype: "admin"
@@ -63,7 +64,7 @@ export class UserService {
   }
 
   addPatient(userID: String,username: String,email: String,
-    password: String,name: String,ID: String,IDtype: String,
+    password: String,name: String,IDno: String,IDtype: String,
     phone: number,first: boolean){
       const user:User = {
         id:"",
@@ -74,7 +75,8 @@ export class UserService {
         name:name,
         centreID:'',
         staffID:'',
-        ID: ID,
+        ID: "",
+        IDno: IDno,
         IDtype: IDtype,
         phone: phone,
         first: first,

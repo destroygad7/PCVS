@@ -41,6 +41,7 @@ app.post("/api/users",(req,res,next)=>{
         staffID: req.body.staffID,
 
         ID: req.body.ID,
+        IDno: req.body.IDno,
         IDtype: req.body.IDtype,
         phone: req.body.phone,
         first: req.body.first
@@ -88,6 +89,7 @@ app.post('/api/users/login',(req,res,next)=>{
           centreID: fetchedUser.centreID,
           staffID: fetchedUser.staffID,
           ID: fetchedUser.ID,
+          IDno: fetchedUser.IDno,
           IDtype: fetchedUser.IDtype,
           phone: fetchedUser.phone,
           first: fetchedUser.first

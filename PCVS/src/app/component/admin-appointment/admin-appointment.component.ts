@@ -8,6 +8,7 @@ import { Vaccination } from 'src/app/model/vaccination.model';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-appointment',
@@ -27,7 +28,7 @@ export class AdminAppointmentComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public vaccinationService:VaccinationService,
     public currentUserService:CurrentUserService, public vaccineService:VaccineService,public userService:UserService,
-    public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+    public dialog: MatDialog, private _snackBar: MatSnackBar, private router:Router) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
@@ -81,6 +82,7 @@ export class AdminAppointmentComponent implements OnInit {
       this.vaccinationService.approveVaccination(vac);
       this. openApprovedSnackBar();
     };
+    this.ngOnInit();
   }
 
   onComplete(vacID:String){
@@ -89,10 +91,12 @@ export class AdminAppointmentComponent implements OnInit {
       this.vaccinationService.completeVaccination(vac);
       this.openCompleteSnackBar();
     };
+    this.ngOnInit();
   }
 
   onReject(vac: Vaccination){
     this.vaccinationService.declineVaccination(vac);
+    this.ngOnInit();
   }
 
   getVaccineNamebyBatchID(batchID: String){
