@@ -48,39 +48,41 @@ __Technology used:__
 - MongoDB
 
 Packages and modules installed:
-- \_\_ngcc_entry_points__.json@ extraneous        
-- @agm/core@3.0.0-beta.0
-- @angular-devkit/build-angular@12.2.5
-- @angular/animations@12.2.5
-- @angular/cdk@12.2.8
-- @angular/cli@12.2.5
-- @angular/common@12.2.5
-- @angular/compiler-cli@12.2.5
-- @angular/compiler@12.2.5
-- @angular/core@12.2.5
-- @angular/forms@12.2.5
-- @angular/material@12.2.5
-- @angular/platform-browser-dynamic@12.2.5      
-- @angular/platform-browser@12.2.5
-- @angular/router@12.2.5
-- @google/maps@1.1.3
-- @types/google__maps@0.5.16
-- @types/googlemaps@3.39.13
-- bcrypt@5.0.1
-- jasmine-core@3.8.0
-- jsonwebtoken@8.5.1
-- karma-chrome-launcher@3.1.0
-- karma-coverage@2.0.3
-- karma-jasmine-html-reporter@1.7.0
-- karma-jasmine@4.0.1
-- karma@6.3.4
-- moment@2.29.1
-- mongoose-unique-validator@3.0.0
-- mongoose@6.0.13
-- rxjs@6.6.7
-- tslib@2.3.1
-- typescript@4.3.5
-- zone.js@0.11.4
+```bash
+├── __ngcc_entry_points__.json@ extraneous        
+├── @agm/core@3.0.0-beta.0
+├── @angular-devkit/build-angular@12.2.5
+├── @angular/animations@12.2.5
+├── @angular/cdk@12.2.8
+├── @angular/cli@12.2.5
+├── @angular/common@12.2.5
+├── @angular/compiler-cli@12.2.5
+├── @angular/compiler@12.2.5
+├── @angular/core@12.2.5
+├── @angular/forms@12.2.5
+├── @angular/material@12.2.5
+├── @angular/platform-browser-dynamic@12.2.5      
+├── @angular/platform-browser@12.2.5
+├── @angular/router@12.2.5
+├── @google/maps@1.1.3
+├── @types/google__maps@0.5.16
+├── @types/googlemaps@3.39.13
+├── bcrypt@5.0.1
+├── jasmine-core@3.8.0
+├── jsonwebtoken@8.5.1
+├── karma-chrome-launcher@3.1.0
+├── karma-coverage@2.0.3
+├── karma-jasmine-html-reporter@1.7.0
+├── karma-jasmine@4.0.1
+├── karma@6.3.4
+├── moment@2.29.1
+├── mongoose-unique-validator@3.0.0
+├── mongoose@6.0.13
+├── rxjs@6.6.7
+├── tslib@2.3.1
+├── typescript@4.3.5
+└── zone.js@0.11.4
+```
 ## Authors
 
 - [@destroygod7](https://github.com/destroygod7)
