@@ -3,21 +3,6 @@
 <p>Bathes for {{vacName}}</p>
 <br>
 
-<!--
-<div style="width: 100%;">
-  <p>
-    <span><mat-icon class="sort-icon"> format_list_numbered</mat-icon></span>
-    <mat-button-toggle-group appearance="legacy" name="sort" aria-label="Font Style" #sort="matButtonToggleGroup">
-      <mat-button-toggle value="">Expiry</mat-button-toggle>
-      <mat-button-toggle value="">Pending</mat-button-toggle>
-      <mat-button-toggle value="">Available</mat-button-toggle>
-      <mat-button-toggle value="">Completed</mat-button-toggle>
-    </mat-button-toggle-group>
-    &nbsp;&nbsp;&nbsp;
-    <button class="func-btn" (click)="openAddBatchDialog()" mat-raised-button color="primary">New Batch</button>
-  </p>
-</div> -->
-
 <mat-card class="center-card" multi= "true" *ngFor="let batch of batches" matRipple [matRippleColor]="'#fcc2c2'">
   <mat-grid-list cols="6" rowHeight="40px">
     <mat-grid-tile colspan="6"><div class="vac-tiles" style="font-size: 20px;">

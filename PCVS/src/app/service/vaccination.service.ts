@@ -135,7 +135,8 @@ export class VaccinationService {
   }
 
   declineVaccination(vac: Vaccination){
-    this.http.delete('http://localhost:3000/api/vaccinations/'+vac.vaccinationID)
+    console.log(vac);
+    this.http.delete('http://localhost:3000/api/vaccinations/'+vac.id)
     .subscribe(()=>{
       console.log('Deleted');
     });

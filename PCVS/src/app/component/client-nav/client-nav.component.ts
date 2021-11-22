@@ -19,7 +19,6 @@ export class ClientNavComponent implements OnInit {
 
   logout() {
     this.currentUserService.logout();
-    console.log("logout");
     return;
   }
 }

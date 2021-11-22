@@ -2,22 +2,6 @@
 <mat-tab-group mat-align-tabs="start">
   <mat-tab label="New">
     <div style="height: 20px;"></div>
-    <div style="width: 100%;">
-      <p>
-        <span><mat-icon class="sort-icon">visibility</mat-icon></span>
-        <mat-button-toggle-group appearance="legacy" name="show" aria-label="Font Style" #show="matButtonToggleGroup">
-          <mat-button-toggle value="">All</mat-button-toggle>
-          <mat-button-toggle value="">Selected</mat-button-toggle>
-        </mat-button-toggle-group>
-        <span><mat-icon class="sort-icon"> format_list_numbered</mat-icon></span>
-          <mat-button-toggle-group appearance="legacy" name="sort" aria-label="Font Style" #sort="matButtonToggleGroup">
-            <mat-button-toggle value="">Expiry</mat-button-toggle>
-            <mat-button-toggle value="">Date</mat-button-toggle>
-            <mat-button-toggle value="">Type</mat-button-toggle>
-            <mat-button-toggle value="">Number</mat-button-toggle>
-          </mat-button-toggle-group>
-      </p>
-      </div>
       <ng-container *ngFor="let vac of vaccinations" multi= "true">
       <mat-card class="center-card" multi= "true" *ngIf="vac.status==='Pending'" matRipple [matRippleColor]="'#8ca9ca'">
         <mat-grid-list cols="5" rowHeight="40px">

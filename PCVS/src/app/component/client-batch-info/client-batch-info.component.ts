@@ -83,20 +83,16 @@ export class ClientBatchInfoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.selecteddate = result.selecteddate;
       let centre = this.centresService.getCentreByID(this.centreID);
-      console.log(this.selecteddate);
       if (this.selecteddate!=undefined&&centre!=undefined){
         let date= new Date(this.selecteddate);
-        console.log(date);
         this.vaccinationService.addVaccinations(
           Math.floor(Math.random()*999999).toString( ),
           this.batchID, this.centreID, this.currentUserService.getUserID(),
           date, centre
         );
         this.openSnackBar();
-        console.log("registered appointment");
       }
     });
   }
@@ -135,7 +131,6 @@ export class ClientAppointDialogComponent implements OnInit{
   }
 
   onEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
     let date: Date = new Date()
     if(event.value!=undefined){
       if (date>event.value){

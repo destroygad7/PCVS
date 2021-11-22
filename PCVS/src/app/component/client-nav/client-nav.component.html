@@ -2,10 +2,7 @@
   <mat-drawer #drawer class="sidenav" mode="side" opened>
     <a routerLink="home" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">home</mat-icon>Home</div></a>
     <a routerLink="vaccines" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">calendar_today</mat-icon>Request Appointment</div></a>
-    <a *ngIf="isLogin()" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">perm_identity</mat-icon>Privacy & Security</div></a>
-    <a *ngIf="isLogin()" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">settings</mat-icon>Languages & Settings</div></a>
     <hr>
-    <a mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">bug_report</mat-icon>Bugs & Feedbacks</div></a>
     <a (click)="logout()" *ngIf="isLogin()" routerLink="" mat-button class="sidenav-btn"><div class="icon-text"><mat-icon class="sidenav-icon">launch</mat-icon>Logout</div></a>
   </mat-drawer>
 

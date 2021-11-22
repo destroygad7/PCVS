@@ -3,6 +3,7 @@ import { User } from '../model/user.model';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { AuthService } from 'backend/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class CurrentUserService {
   private token: string ="";
   private authStatusListener = new Subject<boolean>();
 
-  constructor(public userservice:UserService,private http:HttpClient){
+  constructor(public userservice:UserService,private http:HttpClient,private authService:AuthService){
     this.user ={
       id:"",
       userID:'',
@@ -105,12 +106,16 @@ export class CurrentUserService {
       phone:0,
       first:false,
     };
-    this.http.post <{token:string}>('http://localhost:3000/api/users/login', authData)
+    this.http.post <{token:string,user: User}>('http://localhost:3000/api/users/login', authData)
       .subscribe(response => {
         const token = response.token;
-        this.token = token
+        this.token = token;
+        this.user = response.user;
+        this.authService.setToken(token);
         this.authStatusListener.next(true);
       });
+
+    this.loginstatus=true;
   }
 
   logout(){
@@ -132,6 +137,7 @@ export class CurrentUserService {
     this.user=user;
     this.loginstatus=false;
     this.token = "";
+    this.authService.setToken(this.token);
     this.authStatusListener.next(false);
     return;
   }

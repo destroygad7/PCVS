@@ -27,26 +27,14 @@ export class LoginComponent implements OnInit {
   private userSub:Subscription | undefined;
 
   durationInMiliSeconds = 3000;
-  inputEmail='';
-  inputUser='';
-  inputName='';
-  inputPhone=0;
-  inputIC='';
-  inputICType='';
-  inputPassword='';
-  inputFirstDose=false;
-  inputStaffID='';
-  inputCentreID='';
+  inputEmail='';inputUser='';inputName='';inputPhone=0;inputIC='';inputICType='';inputPassword='';inputFirstDose=false;inputStaffID='';inputCentreID='';
   page:number;
   placeholderName:String='';
   hide = true;
   progress=10;
   newCentreSelect=new FormControl(false);
   ICoptionValue:any;
-  Auth='';
-  centre='';
-  centreID='';
-  vacName='';
+  Auth='';centre='';centreID='';vacName='';
 
   constructor(public userService:UserService, private route:ActivatedRoute,
     public currentUserService:CurrentUserService, public centresService:CentresService,
@@ -97,7 +85,6 @@ export class LoginComponent implements OnInit {
       this.page=6;
       return;
     }
-    console.log(this.inputEmail);
     this.page=1;
   }
 
@@ -113,7 +100,6 @@ export class LoginComponent implements OnInit {
     if (form.value.Passport!='')
       this.inputIC=form.value.Passport;
     this.setProgress(90);
-    console.log("go to 3rd page")
     this.page=3;
   }
 
@@ -128,7 +114,6 @@ export class LoginComponent implements OnInit {
   existingCentre(form: NgForm){
     if (form.invalid){console.log("invalid exist centre");return;}
     this.inputCentreID=form.value.centre;
-    console.log(this.inputCentreID);
     this.page=5;
   }
 
@@ -138,7 +123,6 @@ export class LoginComponent implements OnInit {
     this.centresService.addCentre(id, form.value.centreName,
     form.value.centreAddress,form.value.postcode, form.value.centreState)
     this.inputCentreID=id;
-    console.log(this.inputCentreID);
     this.page=5;
   }
 
@@ -166,26 +150,22 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.openSnackBar();
-    console.log("wrong password?");
     form.reset();
     return;
   }
 
   //page manipulation
   public returnToFirst(){ //clear all form data
-    console.log("back to first");
     this.page=0;
     return;
   }
 
   public gotoPatientReg():any {
-    console.log("to patient register");
     this.page=2;
     return;
   }
 
   public gotoAdminReg() {
-    console.log("to admin register");
     this.page=4;
     return;
   }
@@ -196,17 +176,12 @@ export class LoginComponent implements OnInit {
 
   public setFirstDose(bool:boolean){
     this.inputFirstDose = bool;
-    console.log(this.inputFirstDose);
-    console.log("success first dose data")
   }
 
   public registerPatient() {
     this.userService.addPatient(Math.floor(Math.random()*999999).toString( ),this.inputUser,this.inputEmail,
     this.inputPassword,this.inputName,this.inputIC,this.inputICType,this.inputPhone,
     this.inputFirstDose);
-
-    console.log("(success register, back to login)");
-
     this.page=0;
     this.dialog.open(RegSuccessDialog);
   }
@@ -217,18 +192,9 @@ export class LoginComponent implements OnInit {
     this.inputPassword=form.value.password;
     this.inputName=form.value.fullname;
     this.inputStaffID=form.value.staffID;
-    console.log(this.inputEmail);
-    console.log(this.inputUser);
-    console.log(this.inputName);
-    console.log(this.inputPassword);
-    console.log(this.inputStaffID);
-    console.log(this.inputCentreID);
-
     this.userService.addAdmin(Math.floor(Math.random()*999999).toString( )
     ,this.inputUser,this.inputEmail,this.inputPassword, this.inputName,
     this.inputCentreID,this.inputStaffID)
-
-    console.log("(success register, back to login)");
     this.page=0;
     this.dialog.open(RegSuccessDialog);
   }

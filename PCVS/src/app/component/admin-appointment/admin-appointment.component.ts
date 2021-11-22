@@ -76,11 +76,9 @@ export class AdminAppointmentComponent implements OnInit {
   }
 
   onApprove(vacID:String){
-    console.log("set");
     let vac = this.vaccinationService.getVaccinationbyID(vacID);
     if (vac!=undefined){
       this.vaccinationService.approveVaccination(vac);
-      console.log("updated to approved");
       this. openApprovedSnackBar();
     };
   }
@@ -89,7 +87,6 @@ export class AdminAppointmentComponent implements OnInit {
     let vac = this.vaccinationService.getVaccinationbyID(vacID);
     if (vac!=undefined){
       this.vaccinationService.completeVaccination(vac);
-      console.log("updated to completed");
       this.openCompleteSnackBar();
     };
   }
@@ -105,20 +102,6 @@ export class AdminAppointmentComponent implements OnInit {
   getManufacturerbyBatchID(batchID: String){
     return this.vaccineService.getManufacturerbyBatchID(batchID);
   }
-
-
-
-    // openViewPatienttDialog(): void {
-  //   const dialogRef = this.dialog.open(ViewPatientDialogComponent, {
-  //     width: '800px',
-  //     data: {selecteddate: this.selecteddate}
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
-
 }
 
 @Component({
@@ -148,50 +131,4 @@ export class AdminApprovedSnackBarComponent {
   constructor(
     public snackBarRef: MatSnackBarRef<AdminApprovedSnackBarComponent>){}
 }
-
-
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-// }
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-//   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-//   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}
-// ];
-
-// @Component({
-//   selector: 'admin-viewpatients-dialog',
-//   templateUrl: './admin-viewpatients-dialog.html',
-//   styles: [`
-//     .patient-table {
-//       width: 100%;
-//     }
-//     .content {
-//       padding-top: 5px;
-//       padding-bottom: 10px;
-//     }
-//   `],
-//   providers: [
-//     { provide: MatDialog, useClass: AppointDialogComponent },
-//   ],
-
-// })
-// export class ViewPatientDialogComponent{
-//   constructor(
-//     public dialogRef: MatDialogRef<AppointDialogComponent>,
-//     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-//   displayedColumns: string[] = ['position', 'name', 'weight'];
-//   dataSource = ELEMENT_DATA;
-
-//   onNoClick(): void {
-//     this.dialogRef.close();
-//   }
-// }
-
 

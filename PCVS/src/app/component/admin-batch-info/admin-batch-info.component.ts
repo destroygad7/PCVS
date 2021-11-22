@@ -44,7 +44,6 @@ export class AdminBatchInfoComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.vacName = params['vacname'];
     });
-    console.log(this.currentUserService.getCentreID());
     this.vaccines = this.vaccineService.getVaccines();
     this.vaccineService.getAllBatches();
     this.batchSub = this.vaccineService.getVaccineUpdateListener()
@@ -71,14 +70,12 @@ export class AdminBatchInfoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result!=undefined){
         this.enteredNumber = result.enteredNumber;
         this.enteredQuantity = result.enteredQuantity;
         this.selecteddate = result.selecteddate;
         if (this.selecteddate!=undefined){
           let date = new Date(this.selecteddate);
-          console.log(this.enteredNumber,this.enteredQuantity,this.selecteddate);
           this.vaccineService.addBatches(this.vacName, Math.floor(Math.random()*999999).toString( ),
             this.enteredNumber,date,this.enteredQuantity,
             this.currentUserService.getCentreID(), this.vacName);
@@ -111,7 +108,6 @@ export class AddBatchDialogueComponent implements OnInit{
   }
 
   onEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
     let date: Date = new Date()
     if(event.value!=undefined){
       if (date>event.value){

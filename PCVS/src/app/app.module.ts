@@ -42,7 +42,6 @@ import { AdminBatchComponent } from './component/admin-batch/admin-batch.compone
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAppointmentComponent} from './component/admin-appointment/admin-appointment.component';
 import { AdminBatchInfoComponent } from './component/admin-batch-info/admin-batch-info.component';
-// import { ViewPatientDialogComponent } from './component/admin-appointment/admin-appointment.component';
 import { RegSuccessDialog } from './component/login/login.component';
 import { ClietCentreComponent } from './component/cliet-centre/cliet-centre.component';
 import { ClientBatchInfoComponent } from './component/client-batch-info/client-batch-info.component';
