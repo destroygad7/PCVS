@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { UserService } from './user.service';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +10,12 @@ import { UserService } from './user.service';
 export class CurrentUserService {
   private user:User;
   private loginstatus:boolean = false;
+  private token: string ="";
+  private authStatusListener = new Subject<boolean>();
 
-  constructor(public userservice:UserService){
+  constructor(public userservice:UserService,private http:HttpClient){
     this.user ={
+      id:"",
       userID:'',
       username:'',
       email:"",
@@ -24,6 +29,14 @@ export class CurrentUserService {
       phone:0,
       first:false,
     };
+  }
+
+  getToken(){
+    return this.token;
+  }
+
+  getAuthStatusListener(){
+    return this.authStatusListener.asObservable();
   }
 
   getUser() {
@@ -79,19 +92,30 @@ export class CurrentUserService {
   }
 
   login(email:String,password:String){
-    let user = this.userservice.getUserByEmail(email);
-    if (user!=undefined){
-      if (this.checkPassword(password,user)){
-        this.user = user;
-        this.loginstatus = true;
-        return true;
-      }
-    }
-    return false;
+    const authData: User = {email:email, password:password,
+      id:"",
+      userID:'',
+      username:'',
+      name:"",
+      acctype:"",
+      centreID:"",
+      staffID:"",
+      ID:"",
+      IDtype:"",
+      phone:0,
+      first:false,
+    };
+    this.http.post <{token:string}>('http://localhost:3000/api/users/login', authData)
+      .subscribe(response => {
+        const token = response.token;
+        this.token = token
+        this.authStatusListener.next(true);
+      });
   }
 
   logout(){
     let user:User ={
+      id: "",
       userID:'',
       username:'',
       email:"",
@@ -107,6 +131,8 @@ export class CurrentUserService {
     };
     this.user=user;
     this.loginstatus=false;
+    this.token = "";
+    this.authStatusListener.next(false);
     return;
   }
 

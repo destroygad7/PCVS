@@ -40,6 +40,7 @@ export class UserService {
   addAdmin(userID: String,username: String,email: String,password: String,
     name: String,centreID: String, staffID: String) {
     const user:User  = {
+      id: "",
       userID:userID,
       username:username,
       email:email,
@@ -65,18 +66,19 @@ export class UserService {
     password: String,name: String,ID: String,IDtype: String,
     phone: number,first: boolean){
       const user:User = {
-      userID:userID,
-      username:username,
-      email:email,
-      password:password,
-      name:name,
-      centreID:'',
-      staffID:'',
-      ID: ID,
-      IDtype: IDtype,
-      phone: phone,
-      first: first,
-      acctype: "patient"
+        id:"",
+        userID:userID,
+        username:username,
+        email:email,
+        password:password,
+        name:name,
+        centreID:'',
+        staffID:'',
+        ID: ID,
+        IDtype: IDtype,
+        phone: phone,
+        first: first,
+        acctype: "patient"
       }
       this.http.post<{message:string}>('http://localhost:3000/api/users',user)
       .subscribe((responseData) => {

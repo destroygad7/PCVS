@@ -77,7 +77,6 @@ export class VaccinationService {
         return;
       })
       this.vaccinations.push(vac);
-        //batch.pending+=1;
         this.vaccineService.updateBatchPending(batchID);
       this.vaccinationUpdated.next([...this.vaccinations]);
       return;
@@ -125,20 +124,23 @@ export class VaccinationService {
   approveVaccination(vaccination:Vaccination){
     vaccination.status = "Approved";
     this.updateVaccination(vaccination);
-    //vaccination.batch.pending += 1;
-    console.log(vaccination.status);
     return;
   }
 
   completeVaccination(vaccination:Vaccination){
     vaccination.status = "Completed";
     this.updateVaccination(vaccination);
-    //vaccination.batch.administered += 1;
     this.vaccineService.updateBatchAdministered(vaccination.batch);
     return;
   }
 
-  declineVaccination(vaccination:Vaccination){
+  declineVaccination(vac: Vaccination){
+    this.http.delete('http://localhost:3000/api/vaccinations/'+vac.vaccinationID)
+    .subscribe(()=>{
+      console.log('Deleted');
+    });
+    this.vaccineService.updateRejectedPending(vac.batch);
+    return;
   }
 
   getVaccinationbyID(vaccinationID: String){

@@ -17,8 +17,13 @@ export interface Vaccine{
 export class VaccineService {
   constructor(public centreService: CentresService, private http:HttpClient){}
   private vaccines: Vaccine[] = [
-    {vaccineName: "Astrazeneca", manufacturer: "placeholder"},
-    {vaccineName: "Pfizer", manufacturer: "placeholder"},
+    {vaccineName: "AstraZeneca", manufacturer: "AstraZeneca"},
+    {vaccineName: "CanSino", manufacturer: "CanSino Biologics"},
+    {vaccineName: "CoronaVac", manufacturer: "Sinovac"},
+    {vaccineName: "Johnson & Johnson", manufacturer: "Janssen Pharmaceutical"},
+    {vaccineName: "Moderna", manufacturer: "Moderna"},
+    {vaccineName: "Pfizer", manufacturer: "BioNTech"},
+    {vaccineName: "Sinopharm BBIBP", manufacturer: "Sinopharm"},
   ];
   private batches: Batch[] = [];
   private batchesUpdated = new Subject<Batch[]>();
@@ -88,6 +93,14 @@ export class VaccineService {
     }
   }
 
+  updateRejectedPending( batchid:String ){
+    let batch = this.getBatchbyID(batchid);
+    if (batch!=undefined){
+      batch.pending -= 1;
+      this.updateBatch(batch);
+    }
+  }
+
   getVaccines(){
     return this.vaccines;
   }
@@ -139,7 +152,6 @@ export class VaccineService {
         centre: centreID,
         vaccine: vaccine
       }
-      console.log(batch);
       this.http.post<{message:string}>('http://localhost:3000/api/batches',batch)
       .subscribe((responseData)=>{
         console.log(responseData.message);

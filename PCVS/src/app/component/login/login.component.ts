@@ -144,13 +144,9 @@ export class LoginComponent implements OnInit {
 
   login(form: NgForm){
     if (form.invalid){this.openSnackBar();console.log("invalid login detail");return;}
-    if (this.currentUserService.login(this.inputEmail,form.value.password)){
-      console.log("successful login");
+    this.currentUserService.login(this.inputEmail,form.value.password)
+    if (this.currentUserService.getToken() != ""){
       form.reset();
-
-      console.log(this.currentUserService.getLoginStatus());
-      console.log(this.currentUserService.isAdmin());
-
       if (!this.currentUserService.isAdmin()){
 
         if (this.vacName!=undefined && this.centreID!=undefined){

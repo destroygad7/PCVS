@@ -48,6 +48,8 @@
         <mat-toolbar class="toolbars">
           <mat-toolbar-row class="action-bar">
             <span class="spacer"></span>
+            <button mat-raised-button color='warn' class="toolbar-end-button" (click)="onReject(vac)">
+              Reject Batch</button>
             <button mat-stroked-button color='accent' class="toolbar-end-button" (click)="onApprove(vac.vaccinationID)">
               Appoint Batch</button>
           </mat-toolbar-row >
@@ -107,6 +109,8 @@
         <mat-toolbar class="toolbars">
           <mat-toolbar-row class="action-bar">
             <span class="spacer"></span>
+            <button mat-raised-button color='warn' class="toolbar-end-button" (click)="onReject(vac)">
+              Cancel Appointment</button>
             <button mat-stroked-button color='accent' class="toolbar-end-button" (click)="onComplete(vac.vaccinationID)">
               Register Complete</button>
           </mat-toolbar-row >

@@ -94,6 +94,10 @@ export class AdminAppointmentComponent implements OnInit {
     };
   }
 
+  onReject(vac: Vaccination){
+    this.vaccinationService.declineVaccination(vac);
+  }
+
   getVaccineNamebyBatchID(batchID: String){
     return this.vaccineService.getVaccineNamebyBatchID(batchID);
   }

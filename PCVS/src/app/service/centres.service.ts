@@ -41,7 +41,6 @@ export class CentresService {
   }
 
   getCentreByID(centreID: String){
-    console.log(this.centres);
     for (let i=0;i<this.centres.length;i++){
 
       if (this.centres[i].centreID === centreID)

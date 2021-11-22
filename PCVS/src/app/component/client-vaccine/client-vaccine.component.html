@@ -8,9 +8,10 @@
     <mat-grid-tile colspan="3"><div class="vac-tiles" style="font-size: 16px;">
       <b>{{vaccine.vaccineName}}</b>
     </div></mat-grid-tile>
-    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>blur_on</mat-icon>Batches: {{getTotalBatches(vaccine)}}</div></mat-grid-tile>
-    <mat-grid-tile colspan="1"><div class="vac-tiles"><mat-icon>check_circle_outline</mat-icon>
-      Available: {{getTotalAvailable(vaccine)}}
+    <mat-grid-tile colspan="1"><div class="vac-tiles"><!--
+      <mat-icon>blur_on</mat-icon>Batches: {{getTotalBatches(vaccine)}}--></div></mat-grid-tile>
+    <mat-grid-tile colspan="1"><div class="vac-tiles"><!--<mat-icon>check_circle_outline</mat-icon>
+      Available: {{getTotalAvailable(vaccine)}}-->
     </div></mat-grid-tile>
     <mat-grid-tile colspan="5"><div class="vac-tiles"><mat-icon> store_mall_directory</mat-icon>
       {{vaccine.manufacturer}}

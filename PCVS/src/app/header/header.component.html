@@ -9,7 +9,7 @@
     <div class="spacer"></div>
     <button mat-button>Contact Us</button>
     <button mat-button>About</button>
-    <button *ngIf="!isLogin()" mat-button routerLink="/login">Login | Sign Up</button>
-    <button *ngIf="isLogin()" (click)="logout()" mat-button routerLink="/login">Logout</button>
+    <button *ngIf="!userIsAuthenticated" mat-button routerLink="/login">Login | Sign Up</button>
+    <button *ngIf="userIsAuthenticated" (click)="logout()" mat-button routerLink="/login">Logout</button>
 </div>
 

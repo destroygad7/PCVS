@@ -51,7 +51,8 @@ import { ClientSuccessSnackBarComponent } from './component/client-batch-info/cl
 import { AdminApprovedSnackBarComponent } from './component/admin-appointment/admin-appointment.component';
 import { InvalidLoginSnackbarComponent } from './component/login/login.component';
 import { ErrorComponent } from './component/error/error.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'backend/auth/auth-interceptor';
 
 const appRoutes: Routes = [
   {path:'login',component:LoginComponent},
@@ -138,7 +139,7 @@ const appRoutes: Routes = [
       appRoutes
     )
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
 
 })
