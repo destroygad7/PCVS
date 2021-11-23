@@ -79,7 +79,7 @@ export class AdminBatchInfoComponent implements OnInit {
           this.vaccineService.addBatches(this.vacName, Math.floor(Math.random()*999999).toString( ),
           this.enteredNumber,date,this.enteredQuantity,
           this.currentUserService.getCentreID(), this.vacName);
-          this.ngOnInit();
+
           return;
         }
       }

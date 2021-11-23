@@ -130,25 +130,6 @@ export class LoginComponent implements OnInit {
     if (form.invalid){this.openSnackBar();console.log("invalid login detail");return;}
     this.currentUserService.login(this.inputEmail,form.value.password);
     let hasToken = this.currentUserService.getToken();
-    // if (hasToken != ""){
-    //   form.reset();
-    //   if (!this.currentUserService.isAdmin()){
-
-    //     if (this.vacName!=undefined && this.centreID!=undefined){
-    //       this.router.navigate(['/patient/vaccines/centres/',this.vacName,this.centreID]);
-    //       return;
-    //     }
-    //     else {
-    //       this.router.navigate(['/patient/home']);
-    //       return;
-    //     }
-    //   }
-    //   if (this.currentUserService.isAdmin()){
-    //     this.router.navigate(['/admin/home']);
-
-    //   }
-    //   return;
-    // }
     this.openSnackBar();
     form.reset();
     return;
